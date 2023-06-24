@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build:parser && npm run build:language && npm run build:generator && npm run build:exma",
+    "build:parser": "cd packages/exma-parser && npm run build",
+    "build:language": "cd packages/exma-language && npm run build",
+    "build:generator": "cd packages/exma-generator && npm run build",
+    "build:exma": "cd packages/exma && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "7.6.0"
+  }
+}

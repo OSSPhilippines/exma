@@ -1,0 +1,23 @@
+{
+  "name": "@exma/generator",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "A programmatical command line interface used by projects and that calls on external generators to make relevant code",
+  "author": "Chris <chris@incept.asia>",
+  "homepage": "https://github.com/OSSPhilippines/exma",
+  "bugs": "https://github.com/OSSPhilippines/exma/issues",
+  "repository": "OSSPhilippines/exma",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "npm run build:tsc && npm run build:files",
+    "build:tsc": "tsc",
+    "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "20.2.5",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.4"
+  }
+}
