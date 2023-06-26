@@ -1,0 +1,23 @@
+//about user
+model User @label("User" "Users" 4.4 some) {
+  id       string       @label("ID")         @id @default("nanoid(20)")
+  username string       @label("Username")   @searchable @field.input(Text) @is.required
+  //hmm ok
+  password string       @label("Password")   @field.password @is.required @list.hide @view.hide
+  role     Roles        @label("Role")       @filterable @field.select @list.text(Uppercase) @view.text(Uppercase)
+  address  Address?     @label("Address")    @list.hide
+  age      number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
+  salary   number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
+  balance  number       @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
+  bio      text         @label("Bio")        @field.markdown
+  active   boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
+  created  Date         @label("Created")    @default("now()") @filterable @sortable @list.date(Pretty)
+  updated  Date         @label("Updated")    @default("updated()") @filterable @sortable @list.date(Pretty)
+  company  Company?     @label("My Company") 
+}
+/*
+  Another User
+ */
+model User @label("User" "Users" 4 some) {
+  id       string       @label("ID")         @id @default("nanoid(20)")
+}

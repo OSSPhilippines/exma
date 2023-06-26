@@ -1,0 +1,821 @@
+[
+  {
+    "type": "model",
+    "value": "User",
+    "start": 13,
+    "end": 1280,
+    "params": [
+      {
+        "type": "Parameter",
+        "value": "@label",
+        "start": 24,
+        "end": 30,
+        "body": [
+          {
+            "type": "String",
+            "value": "\"User\"",
+            "start": 31,
+            "end": 37
+          },
+          {
+            "type": "String",
+            "value": "\"Users\"",
+            "start": 38,
+            "end": 45
+          },
+          {
+            "type": "Float",
+            "value": "4.4",
+            "start": 46,
+            "end": 49
+          },
+          {
+            "type": "ObjectIdentifier",
+            "value": "some",
+            "start": 50,
+            "end": 54
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "id",
+        "value": "string",
+        "start": 60,
+        "end": 132,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 82,
+            "end": 88,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"ID\"",
+                "start": 89,
+                "end": 93
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@id",
+            "start": 103,
+            "end": 106,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@default",
+            "start": 107,
+            "end": 115,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"nanoid(20)\"",
+                "start": 116,
+                "end": 128
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "username",
+        "value": "string",
+        "start": 132,
+        "end": 232,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 154,
+            "end": 160,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Username\"",
+                "start": 161,
+                "end": 171
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@searchable",
+            "start": 175,
+            "end": 186,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.input",
+            "start": 187,
+            "end": 199,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Text",
+                "start": 200,
+                "end": 204
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@is.required",
+            "start": 206,
+            "end": 218,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "password",
+        "value": "string",
+        "start": 232,
+        "end": 328,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 254,
+            "end": 260,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Password\"",
+                "start": 261,
+                "end": 271
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.password",
+            "start": 275,
+            "end": 290,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@is.required",
+            "start": 291,
+            "end": 303,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.hide",
+            "start": 304,
+            "end": 314,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@view.hide",
+            "start": 315,
+            "end": 325,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "role",
+        "value": "Roles",
+        "start": 328,
+        "end": 443,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 350,
+            "end": 356,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Role\"",
+                "start": 357,
+                "end": 363
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 371,
+            "end": 382,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.select",
+            "start": 383,
+            "end": 396,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.text",
+            "start": 397,
+            "end": 407,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Uppercase",
+                "start": 408,
+                "end": 417
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@view.text",
+            "start": 419,
+            "end": 429,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Uppercase",
+                "start": 430,
+                "end": 439
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "address",
+        "value": "Address?",
+        "start": 443,
+        "end": 499,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 465,
+            "end": 471,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Address\"",
+                "start": 472,
+                "end": 481
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.hide",
+            "start": 486,
+            "end": 496,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "age",
+        "value": "number",
+        "start": 499,
+        "end": 617,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 521,
+            "end": 527,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Age\"",
+                "start": 528,
+                "end": 533
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@unsigned",
+            "start": 542,
+            "end": 551,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 552,
+            "end": 563,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@sortable",
+            "start": 564,
+            "end": 573,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.number",
+            "start": 574,
+            "end": 587,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Age",
+                "start": 588,
+                "end": 591
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@is.gt",
+            "start": 593,
+            "end": 599,
+            "body": [
+              {
+                "type": "Integer",
+                "value": "0",
+                "start": 600,
+                "end": 601
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@is.lt",
+            "start": 603,
+            "end": 609,
+            "body": [
+              {
+                "type": "Integer",
+                "value": "150",
+                "start": 610,
+                "end": 613
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "salary",
+        "value": "number",
+        "start": 617,
+        "end": 741,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 639,
+            "end": 645,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Salary\"",
+                "start": 646,
+                "end": 654
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@insigned",
+            "start": 660,
+            "end": 669,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 670,
+            "end": 681,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@sortable",
+            "start": 682,
+            "end": 691,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.number",
+            "start": 692,
+            "end": 705,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Price",
+                "start": 706,
+                "end": 711
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.number",
+            "start": 713,
+            "end": 725,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@view.number",
+            "start": 726,
+            "end": 738,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "balance",
+        "value": "number",
+        "start": 741,
+        "end": 852,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 763,
+            "end": 769,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Balance\"",
+                "start": 770,
+                "end": 779
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 784,
+            "end": 795,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@sortable",
+            "start": 796,
+            "end": 805,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.number",
+            "start": 806,
+            "end": 819,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.number",
+            "start": 822,
+            "end": 834,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@view.number",
+            "start": 837,
+            "end": 849,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "bio",
+        "value": "text",
+        "start": 852,
+        "end": 913,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 874,
+            "end": 880,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Bio\"",
+                "start": 881,
+                "end": 886
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.markdown",
+            "start": 895,
+            "end": 910,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "active",
+        "value": "boolean",
+        "start": 913,
+        "end": 1023,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 935,
+            "end": 941,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Active\"",
+                "start": 942,
+                "end": 950
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@default",
+            "start": 956,
+            "end": 964,
+            "body": [
+              {
+                "type": "True",
+                "value": "true",
+                "start": 965,
+                "end": 969
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 971,
+            "end": 982,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@field.switch",
+            "start": 983,
+            "end": 996,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.yesno",
+            "start": 997,
+            "end": 1008,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@view.yesno",
+            "start": 1009,
+            "end": 1020,
+            "body": []
+          }
+        ]
+      },
+      {
+        "type": "created",
+        "value": "Date",
+        "start": 1023,
+        "end": 1127,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 1045,
+            "end": 1051,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Created\"",
+                "start": 1052,
+                "end": 1061
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@default",
+            "start": 1066,
+            "end": 1074,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"now()\"",
+                "start": 1075,
+                "end": 1082
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 1084,
+            "end": 1095,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@sortable",
+            "start": 1096,
+            "end": 1105,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.date",
+            "start": 1106,
+            "end": 1116,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Pretty",
+                "start": 1117,
+                "end": 1123
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "updated",
+        "value": "Date",
+        "start": 1127,
+        "end": 1235,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 1149,
+            "end": 1155,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"Updated\"",
+                "start": 1156,
+                "end": 1165
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@default",
+            "start": 1170,
+            "end": 1178,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"updated()\"",
+                "start": 1179,
+                "end": 1190
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@filterable",
+            "start": 1192,
+            "end": 1203,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@sortable",
+            "start": 1204,
+            "end": 1213,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@list.date",
+            "start": 1214,
+            "end": 1224,
+            "body": [
+              {
+                "type": "ObjectIdentifier",
+                "value": "Pretty",
+                "start": 1225,
+                "end": 1231
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "company",
+        "value": "Company?",
+        "start": 1235,
+        "end": 1279,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 1257,
+            "end": 1263,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"My Company\"",
+                "start": 1264,
+                "end": 1276
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "model",
+    "value": "User",
+    "start": 1303,
+    "end": 1419,
+    "params": [
+      {
+        "type": "Parameter",
+        "value": "@label",
+        "start": 1314,
+        "end": 1320,
+        "body": [
+          {
+            "type": "String",
+            "value": "\"User\"",
+            "start": 1321,
+            "end": 1327
+          },
+          {
+            "type": "String",
+            "value": "\"Users\"",
+            "start": 1328,
+            "end": 1335
+          },
+          {
+            "type": "Integer",
+            "value": "4",
+            "start": 1336,
+            "end": 1337
+          },
+          {
+            "type": "ObjectIdentifier",
+            "value": "some",
+            "start": 1338,
+            "end": 1342
+          }
+        ]
+      }
+    ],
+    "body": [
+      {
+        "type": "id",
+        "value": "string",
+        "start": 1348,
+        "end": 1418,
+        "params": [
+          {
+            "type": "Parameter",
+            "value": "@label",
+            "start": 1370,
+            "end": 1376,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"ID\"",
+                "start": 1377,
+                "end": 1381
+              }
+            ]
+          },
+          {
+            "type": "Parameter",
+            "value": "@id",
+            "start": 1391,
+            "end": 1394,
+            "body": []
+          },
+          {
+            "type": "Parameter",
+            "value": "@default",
+            "start": 1395,
+            "end": 1403,
+            "body": [
+              {
+                "type": "String",
+                "value": "\"nanoid(20)\"",
+                "start": 1404,
+                "end": 1416
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

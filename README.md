@@ -155,7 +155,7 @@ type Text {
 object Address @label("Address", "Addresses") {
   street  string    @field.input(Text) @is.required @list.hide
   city    string    @field.input(Text) @is.required
-  country string(2) @field.select(Countries) @is.option(Countries) @view.text(Uppercase)
+  country string    @field.select(Countries) @is.option(Countries) @view.text(Uppercase)
   postal  string    @field.input(Text) @is.required
 }
 ```
@@ -163,15 +163,15 @@ object Address @label("Address", "Addresses") {
 ### Example 6. Schema
 
 ```js
-model User @label("User", "Users") {
+model User @label("User" "Users") {
   id       string       @label("ID")         @id @default("nanoid(20)")
   username string       @label("Username")   @searchable @field.input(Text) @is.required
   password string       @label("Password")   @field.password @is.required @list.hide @view.hide
   role     Roles        @label("Role")       @filterable @field.select @list.text(Uppercase) @view.text(Uppercase)
   address  Address?     @label("Address")    @list.hide
-  age      number(3)    @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
-  salary   number(10,2) @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
-  balance  number       @label("Balance")    @filterable @sortable @field.number({ step 0.01 }) @list.number({ step 0.01 }) @view.number
+  age      number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
+  salary   number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
+  balance  number       @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
   bio      text         @label("Bio")        @field.markdown
   active   boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
   created  Date         @label("Created")    @default(now()) @filterable @sortable @list.date(Pretty)
