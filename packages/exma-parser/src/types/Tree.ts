@@ -87,9 +87,9 @@ export default class Tree {
    */
   object(): NodeWithParamsBody {
     const type = this._parser.expect('Type');
-    this._parser.expect(['whitespace', '//', '/**/']);
+    this._parser.expect('whitespace');
     const value = this._parser.expect('ObjectIdentifier');
-    this._parser.expect(['whitespace', '//', '/**/']);
+    this._parser.expect('whitespace');
     const params: NodeWithBody[] = [];
     //loop params
     while(this._parser.next('Parameter')) {
@@ -137,9 +137,9 @@ export default class Tree {
    */
   property(): NodeWithParams {
     const type = this._parser.expect('Type');
-    this._parser.expect(['whitespace', '//', '/**/']);
+    this._parser.expect('whitespace');
     const value = this._parser.expect('PropertyIdentifier');
-    this._parser.expect(['whitespace', '//', '/**/']);
+    this._parser.expect('whitespace');
     const params: NodeWithBody[] = [];
     //loop params
     while(this._parser.next('Parameter')) {

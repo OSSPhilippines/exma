@@ -34,43 +34,6 @@ export default class Parser {
   }
 
   /**
-   * Loads the code
-   */
-  load(code: string) {
-    this._code = code;
-    this._index = 0;
-    return this;
-  }
-
-  /**
-   * Tests to see if the next set of characters match the given names
-   */
-  public next(names: string|string[]) {
-    const start = this._index;
-    try {
-      this.expect(names);
-      this._index = start;
-      return true;
-    } catch (error) {
-      this._index = start;
-      return false;
-    }
-  }
-
-  /**
-   * Possible returns a token that matches any of the given names 
-   */
-  public optional(names: string|string[]) {
-    const start = this._index;
-    try {
-      return this.expect(names);
-    } catch (error) {
-      this._index = start;
-      return undefined;
-    }
-  }
-
-  /**
    * Returns a token that matches any of the given names
    */
   public expect(names: string|string[]) {
@@ -134,6 +97,30 @@ export default class Parser {
   }
 
   /**
+   * Loads the code
+   */
+  load(code: string) {
+    this._code = code;
+    this._index = 0;
+    return this;
+  }
+
+  /**
+   * Tests to see if the next set of characters match the given names
+   */
+  public next(names: string|string[]) {
+    const start = this._index;
+    try {
+      this.expect(names);
+      this._index = start;
+      return true;
+    } catch (error) {
+      this._index = start;
+      return false;
+    }
+  }
+
+  /**
    * Converts a token into an AST node
    */
   public node<T extends Node = Node>(token: Token, withBody = false) {
@@ -156,6 +143,26 @@ export default class Parser {
   }
 
   /**
+   * Possible returns a token that matches any of the given names 
+   */
+  public optional(names: string|string[]) {
+    const start = this._index;
+    try {
+      return this.expect(names);
+    } catch (error) {
+      this._index = start;
+      return undefined;
+    }
+  }
+
+  /**
+   * Reads ahead and tries determines the next token
+   */
+  public read() {
+    return this.optional(Object.keys(this._lexer.dictionary));
+  }
+
+  /**
    * Tries to create a token given the results from the parser
    */
   protected _token(
@@ -172,7 +179,7 @@ export default class Parser {
       throw Exception.for('Expected %s', names.join(' or '));
     }
     return { 
-      name: match.name, 
+      name: match.label || match.name, 
       value, 
       start, 
       end: this._index, 

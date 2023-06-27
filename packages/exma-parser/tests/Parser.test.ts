@@ -108,4 +108,20 @@ describe('Parser', () => {
       expect(token.end).to.equal(45);
     })();
   });
+
+  it('Should parse object', async () => {
+    const lexer = new Lexer();
+    lexer.define('Object', (value: string) => {
+      const opens = value.match(/\{/g) || [];
+      const closes = value.match(/\}/g) || [];
+      return !opens.length ? -1: opens.length !== closes.length ? 0: 1;
+    });
+
+    const parser = new Parser(lexer).load('{"{d{d}"}d}');
+    const token = parser.expect('Object');
+    expect(token.name).to.equal('Object');
+    expect(token.value).to.equal('{"{d{d}"}d}');
+    expect(token.start).to.equal(0);
+    expect(token.end).to.equal(11);
+  });
 });

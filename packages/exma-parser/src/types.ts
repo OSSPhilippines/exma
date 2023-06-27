@@ -1,8 +1,9 @@
 export type Syntax = (value: string) => -1|0|1;
-export type Match = { name: string, match: 0|1 };
+export type Match = { name: string, label: string, match: 0|1 };
 
 export type Definition = {
   name: string;
+  label: string;
   syntax: Syntax;
 };
 
