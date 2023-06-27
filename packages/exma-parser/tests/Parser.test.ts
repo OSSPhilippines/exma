@@ -117,7 +117,46 @@ describe('Parser', () => {
       return !opens.length ? -1: opens.length !== closes.length ? 0: 1;
     });
 
+    // What about?
+    // { foo "bar" bar "foo" zoo { foo "foo" } }
+
     const parser = new Parser(lexer).load('{"{d{d}"}d}');
+    const token = parser.expect('Object');
+    expect(token.name).to.equal('Object');
+    expect(token.value).to.equal('{"{d{d}"}d}');
+    expect(token.start).to.equal(0);
+    expect(token.end).to.equal(11);
+  });
+
+  it('Should parse JSON', async () => {
+    const lexer = new Lexer();
+    lexer.define('JsonObject', (value: string) => {
+      if (!value.startsWith('{')) {
+        return -1;
+      }
+      try {
+        JSON.parse(value);
+      } catch(e) {
+        return 0;
+      }
+      return 1;
+    });
+    lexer.define('JsonArray', (value: string) => {
+      if (!value.startsWith('[')) {
+        return -1;
+      }
+      try {
+        JSON.parse(value);
+      } catch(e) {
+        return 0;
+      }
+      return 1;
+    });
+
+    // What about?
+    // { foo "bar" bar "foo" zoo { foo "foo" } }
+
+    const parser = new Parser(lexer).load('');
     const token = parser.expect('Object');
     expect(token.name).to.equal('Object');
     expect(token.value).to.equal('{"{d{d}"}d}');
