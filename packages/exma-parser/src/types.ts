@@ -1,5 +1,24 @@
-export type Syntax = (value: string) => -1|0|1;
-export type Match = { name: string, label: string, match: 0|1 };
+export interface LexerInterface {
+  get dictionary(): Record<string, Definition>;
+  get index(): number;
+  clone(): LexerInterface;
+  define(name: string, syntax: RegExp|Syntax, label?: string): void;
+  expect(names: string | string[]): Token;
+  get(name: string): Definition|undefined;
+  load(code: string, index: number): this;
+  match(code: string, start: number, names?: string[]): Token[];
+  next(names: string | string[]): boolean;
+  node<T extends Node = Node>(token: Token, withBody?: boolean): T;
+  optional(names: string | string[]): Token | undefined;
+  read(): Token | undefined
+}
+
+export type Match = { end: number, value: any };
+export type Syntax = (
+  code: string, 
+  start: number, 
+  lexer: LexerInterface
+) => Match|undefined;
 
 export type Definition = {
   name: string;
@@ -9,14 +28,14 @@ export type Definition = {
 
 export type Token = {
   name: string;
-  value: string;
+  value: any;
   start: number;
   end: number;
 };
 
 export type Node = {
   type: string;
-  value: string;
+  value: any;
   start: number;
   end: number;
   params?: Node[];
@@ -25,7 +44,7 @@ export type Node = {
 
 export type NodeWithBody = {
   type: string;
-  value: string;
+  value: any;
   start: number;
   end: number;
   body: Node[];

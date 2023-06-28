@@ -1,0 +1,188 @@
+{
+  "type": "type",
+  "value": "Address",
+  "start": 0,
+  "end": 324,
+  "params": [
+    {
+      "type": "Parameter",
+      "value": "@label",
+      "start": 13,
+      "end": 19,
+      "body": [
+        {
+          "type": "String",
+          "value": "Address",
+          "start": 20,
+          "end": 29
+        },
+        {
+          "type": "String",
+          "value": "Addresses",
+          "start": 30,
+          "end": 41
+        }
+      ]
+    }
+  ],
+  "body": [
+    {
+      "type": "String",
+      "value": "street",
+      "start": 55,
+      "end": 110,
+      "params": [
+        {
+          "type": "Parameter",
+          "value": "@field.input",
+          "start": 65,
+          "end": 77,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Text",
+              "start": 78,
+              "end": 82
+            }
+          ]
+        },
+        {
+          "type": "Parameter",
+          "value": "@is.required",
+          "start": 84,
+          "end": 96,
+          "body": []
+        },
+        {
+          "type": "Parameter",
+          "value": "@list.hide",
+          "start": 97,
+          "end": 107,
+          "body": []
+        }
+      ]
+    },
+    {
+      "type": "String?",
+      "value": "city",
+      "start": 118,
+      "end": 162,
+      "params": [
+        {
+          "type": "Parameter",
+          "value": "@field.input",
+          "start": 128,
+          "end": 140,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Text",
+              "start": 141,
+              "end": 145
+            }
+          ]
+        },
+        {
+          "type": "Parameter",
+          "value": "@is.required",
+          "start": 147,
+          "end": 159,
+          "body": []
+        }
+      ]
+    },
+    {
+      "type": "String",
+      "value": "country",
+      "start": 170,
+      "end": 273,
+      "params": [
+        {
+          "type": "Parameter",
+          "value": "@field.select",
+          "start": 180,
+          "end": 193,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Countries",
+              "start": 194,
+              "end": 203
+            }
+          ]
+        },
+        {
+          "type": "Parameter",
+          "value": "@is.option",
+          "start": 205,
+          "end": 215,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Countries",
+              "start": 216,
+              "end": 225
+            }
+          ]
+        },
+        {
+          "type": "Parameter",
+          "value": "@list.text",
+          "start": 227,
+          "end": 237,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Uppercase",
+              "start": 238,
+              "end": 247
+            }
+          ]
+        },
+        {
+          "type": "Parameter",
+          "value": "@view.text",
+          "start": 249,
+          "end": 259,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Uppercase",
+              "start": 260,
+              "end": 269
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "String",
+      "value": "postal",
+      "start": 281,
+      "end": 323,
+      "params": [
+        {
+          "type": "Parameter",
+          "value": "@field.input",
+          "start": 291,
+          "end": 303,
+          "body": [
+            {
+              "type": "Reference",
+              "value": "Text",
+              "start": 304,
+              "end": 308
+            }
+          ]
+        },
+        {
+          "type": "Parameter",
+          "value": "@is.required",
+          "start": 310,
+          "end": 322,
+          "body": []
+        }
+      ]
+    }
+  ]
+}

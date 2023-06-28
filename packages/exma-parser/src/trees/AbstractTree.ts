@@ -2,7 +2,6 @@
 import type { Node } from '../types';
 
 import Lexer from '../types/Lexer';
-import Parser from '../types/Parser';
 
 import definitions from '../definitions';
 
@@ -21,32 +20,34 @@ export default abstract class AbstractTree<T = Node> {
     lexer.define(']', definitions[']']);
     lexer.define('[', definitions['[']);
     lexer.define('Null', definitions['Null']);
-    lexer.define('True', definitions['True']);
-    lexer.define('False', definitions['False']);
+    lexer.define('Boolean', definitions['Boolean']);
     lexer.define('String', definitions['String']);
     lexer.define('Float', definitions['Float']);
     lexer.define('Integer', definitions['Integer']);
+    lexer.define('ObjectKey', definitions['ObjectKey']);
+    lexer.define('Object', definitions['Object']);
+    lexer.define('Array', definitions['Array']);
     return lexer;
   }
 
   //the parser
-  protected _parser: Parser;
+  protected _lexer: Lexer;
 
   /**
    * Creates a new parser 
    */
-  constructor() {
-    this._parser = new Parser(
-      (this.constructor as typeof AbstractTree).definitions(new Lexer())
-    );
+  constructor(lexer?: Lexer) {
+    this._lexer = lexer || (
+      this.constructor as typeof AbstractTree
+    ).definitions(new Lexer());
   }
 
   /**
    * Consumes non code
    */
   noncode() {
-    while(this._parser.next(['whitespace', '//', '/**/'])) {
-      this._parser.expect(['whitespace', '//', '/**/']);
+    while(this._lexer.next(['whitespace', '//', '/**/'])) {
+      this._lexer.expect(['whitespace', '//', '/**/']);
     }
   }
 

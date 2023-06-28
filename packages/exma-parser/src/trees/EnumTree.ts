@@ -14,52 +14,58 @@ export default class TypeTree extends AbstractTree<NodeWithBody> {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
-    lexer.define('Type',  /^[A-Z][a-zA-Z0-9_]*$/); 
     lexer.define('EnumWord', /^enum$/, 'Type');
     lexer.define('EnumIdentifier', /^[A-Z][a-zA-Z0-9_]*$/, 'Identifier');
-    lexer.define('PropertyIdentifier', /^[A-Z][A-Z0-9_]*\?*$/, 'Identifier');
+    lexer.define('EnumPropertyIdentifier', /^[A-Z][A-Z0-9_]*\?*$/, 'Identifier');
     return lexer;
   }
 
   /**
    * (Main) Builds the syntax tree
    */
-  static parse(code: string) {
-    return new this().parse(code);
+  static parse(code: string, start: number = 0) {
+    return new this().parse(code, start);
   }
 
   /**
    * Builds the enum syntax
    */
-  parse(code: string): NodeWithBody {
-    this._parser.load(code);
+  parse(code: string, start: number = 0): NodeWithBody {
+    this._lexer.load(code, start);
+    return this.enum();
+  }
+
+  /**
+   * Builds the enum syntax
+   */
+  enum(): NodeWithBody {
     //enum
-    const type = this._parser.expect('EnumWord');
-    this._parser.expect('whitespace');
+    const type = this._lexer.expect('EnumWord');
+    this._lexer.expect('whitespace');
     //enum Foobar
-    const value = this._parser.expect('EnumIdentifier');
-    this._parser.expect('whitespace');
+    const value = this._lexer.expect('EnumIdentifier');
+    this._lexer.expect('whitespace');
     //enum Foobar {
-    this._parser.expect('{');
+    this._lexer.expect('{');
     this.noncode();
     const props: Node[] = [];
     //enum Foobar {
     //  FOO "bar"
     //  ...
-    while(this._parser.next('PropertyIdentifier')) {
-      props.push(this.property());
+    while(this._lexer.next('EnumPropertyIdentifier')) {
+      props.push(...this.property());
     }
     //enum Foobar {
     //  FOO "bar"
     //  ...
     //}
-    this._parser.expect('}');
+    this._lexer.expect('}');
   
     return {
       type: type.value,
       value: value.value,
       start: type.start,
-      end: this._parser.index,
+      end: this._lexer.index,
       body: props
     };
   }
@@ -67,19 +73,27 @@ export default class TypeTree extends AbstractTree<NodeWithBody> {
   /**
    * Builds the property syntax
    */
-  property(): Node {
+  property(): Node[] {
     //FOO
-    const value = this._parser.expect('PropertyIdentifier');
-    this._parser.expect('whitespace');
+    const type = this._lexer.expect('EnumPropertyIdentifier');
+    this._lexer.expect('whitespace');
     //FOO "bar"
-    const type = this._parser.expect(args);
-    this._parser.expect('whitespace');
+    const value = this._lexer.expect(args);
+    this._lexer.expect('whitespace');
     this.noncode();
-    return {
-      type: type.value,
-      value: value.value,
-      start: type.start,
-      end: this._parser.index
-    };
+    return [
+      {
+        type: type.name,
+        value: type.value,
+        start: type.start,
+        end: type.end
+      },
+      {
+        type: value.name,
+        value: value.value,
+        start: value.start,
+        end: value.end
+      }
+    ];
   }
 };
