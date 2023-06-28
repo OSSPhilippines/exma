@@ -1,19 +1,21 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "lib": [ "es2021", "es7", "es6", "dom" ],
-    "module": "commonjs",
-    "noUnusedLocals": true,
-    "outDir": "./dist/",
-    "preserveConstEnums": true,
-    "resolveJsonModule": true,
-    "removeComments": true,
-    "sourceMap": false,
-    "strict": true,
-    "target": "es6",
-    "skipLibCheck": true
-  },
-  "include": [ "src/**/*.ts" ],
-  "exclude": [ "dist", "docs", "node_modules", "test"]
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2020",
+		"lib": ["es2020"],
+		"outDir": "out",
+		"rootDir": "src",
+		"sourceMap": true
+	},
+	"include": [
+		"src"
+	],
+	"exclude": [
+		"node_modules",
+		".vscode-test"
+	],
+	"references": [
+		{ "path": "./client" },
+		{ "path": "./server" }
+	]
 }
