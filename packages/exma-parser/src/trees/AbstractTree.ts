@@ -5,7 +5,7 @@ import Lexer from '../types/Lexer';
 
 import definitions from '../definitions';
 
-export default abstract class AbstractTree<T = Node> {
+export default abstract class AbstractTree {
   //the language used
   static definitions(lexer: Lexer) {
     lexer.define('line', definitions.line);
@@ -19,14 +19,14 @@ export default abstract class AbstractTree<T = Node> {
     lexer.define('{', definitions['{']);
     lexer.define(']', definitions[']']);
     lexer.define('[', definitions['[']);
-    lexer.define('Null', definitions['Null']);
-    lexer.define('Boolean', definitions['Boolean']);
-    lexer.define('String', definitions['String']);
-    lexer.define('Float', definitions['Float']);
-    lexer.define('Integer', definitions['Integer']);
-    lexer.define('ObjectKey', definitions['ObjectKey']);
-    lexer.define('Object', definitions['Object']);
-    lexer.define('Array', definitions['Array']);
+    lexer.define('Null', definitions['Null'], 'Literal');
+    lexer.define('Boolean', definitions['Boolean'], 'Literal');
+    lexer.define('String', definitions['String'], 'Literal');
+    lexer.define('Float', definitions['Float'], 'Literal');
+    lexer.define('Integer', definitions['Integer'], 'Literal');
+    lexer.define('ObjectKey', definitions['ObjectKey'], 'Identifier');
+    lexer.define('Object', definitions['Object'], 'ObjectExpression');
+    lexer.define('Array', definitions['Array'], 'ArrayExpression');
     return lexer;
   }
 
@@ -54,5 +54,5 @@ export default abstract class AbstractTree<T = Node> {
   /**
    * Builds the object syntax
    */
-  abstract parse(code: string): T;
+  abstract parse(code: string, start: number): Node;
 };

@@ -142,6 +142,18 @@ describe('Lexer', () => {
       expect(token.value[4].foo).to.equal(false);
       expect(token.value[4].bar).to.equal(null);
     })();
+    //array object
+    (() => {
+      lexer.load('[ { label "United States" value "US" } { label "Mexico" value "MX" } { label "Canada" value "CA" } ]');
+      const token = lexer.expect(args);
+      expect(token.name).to.equal('Array');
+      expect(token.value[0].label).to.equal('United States');
+      expect(token.value[0].value).to.equal('US');
+      expect(token.value[1].label).to.equal('Mexico');
+      expect(token.value[1].value).to.equal('MX');
+      expect(token.value[2].label).to.equal('Canada');
+      expect(token.value[2].value).to.equal('CA');
+    })();
     
   });
 

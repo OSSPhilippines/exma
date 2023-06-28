@@ -1,10 +1,7 @@
-//types
-import type { NodeWithBody } from '../types';
-
 import Lexer from '../types/Lexer';
 import AbstractTree from './AbstractTree';
 
-export default class PropTree extends AbstractTree<NodeWithBody> {
+export default class PropTree extends AbstractTree {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
@@ -16,14 +13,14 @@ export default class PropTree extends AbstractTree<NodeWithBody> {
   /**
    * (Main) Builds the syntax tree
    */
-  static parse(code: string, start: number = 0) {
+  static parse(code: string, start = 0) {
     return new this().parse(code, start);
   }
 
   /**
    * Builds the enum syntax
    */
-  parse(code: string, start: number = 0): NodeWithBody {
+  parse(code: string, start = 0) {
     this._lexer.load(code, start);
     return this.prop();
   }
@@ -42,16 +39,22 @@ export default class PropTree extends AbstractTree<NodeWithBody> {
     const value = this._lexer.expect('Object');
   
     return {
-      type: type.value,
-      value: name.value,
+      type: 'VariableDeclaration',
+      kind: 'props',
       start: type.start,
-      end: this._lexer.index,
-      body: [
+      end: value.end,
+      declarations: [
         {
-          type: value.name,
-          value: value.value,
-          start: value.start,
-          end: value.end
+          type: 'VariableDeclarator',
+          start: name.start,
+          end: value.end,
+          id: {
+            type: 'Identifier',
+            name: name.value as string,
+            start: name.start,
+            end: name.end
+          },
+          init: value.node
         }
       ]
     };

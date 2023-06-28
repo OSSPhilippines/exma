@@ -1,5 +1,5 @@
 //types
-import type { NodeWithBody } from '../types';
+import type { Node } from '../types';
 
 import Lexer from '../types/Lexer';
 
@@ -11,7 +11,7 @@ import ModelTree from './ModelTree';
 
 import { args } from '../definitions';
 
-export default class SchemaTree extends AbstractTree<NodeWithBody> {
+export default class SchemaTree extends AbstractTree {
   static args = [ ...args, 'Reference' ];
 
   //the language used
@@ -53,11 +53,11 @@ export default class SchemaTree extends AbstractTree<NodeWithBody> {
   /**
    * Builds the type syntax
    */
-  parse(code: string, start: number = 0): NodeWithBody {
+  parse(code: string, start: number = 0) {
     this._lexer.load(code, start);
     const entries = [ 'EnumWord', 'PropWord', 'TypeWord', 'ModelWord' ];
     this._lexer.optional('whitespace');
-    const body: NodeWithBody[] = [];
+    const body: Node[] = [];
     while (this._lexer.next(entries)) {
       switch(true) {
         case this._lexer.next('EnumWord'):
@@ -77,7 +77,7 @@ export default class SchemaTree extends AbstractTree<NodeWithBody> {
     }
 
     return {
-      type: 'Schema',
+      type: 'Program',
       value: 'schema',
       start: 0,
       end: this._lexer.index,

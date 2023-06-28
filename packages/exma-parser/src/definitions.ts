@@ -1,4 +1,4 @@
-import type { Syntax } from './types';
+import type { Syntax, Node } from './types';
 const definitions: Record<string, RegExp|Syntax> = {
   'line': /^[\n\r]+$/,
   'space': /^[ ]+$/,
@@ -13,15 +13,44 @@ const definitions: Record<string, RegExp|Syntax> = {
   '[': /^\[$/,
   'Null': (code: string, index: number) => {
     return code.substring(index, index + 4) === 'null' 
-      ? { end: index + 4, value: null }
-      : undefined; 
+      ? { 
+        end: index + 4, 
+        value: null, 
+        node: { 
+          type: 'Literal', 
+          start: index,
+          end: index + 4,
+          value: null,
+          raw: 'null'
+        } 
+      } : undefined; 
   },
   'Boolean': (code, index) => {
     if (code.substring(index, index + 4) === 'true') {
-      return { end: index + 4, value: true };
+      return { 
+        end: index + 4, 
+        value: true, 
+        node: { 
+          type: 'Literal', 
+          start: index,
+          end: index + 4,
+          value: true,
+          raw: 'true'
+        } 
+      };
     }
     if (code.substring(index, index + 5) === 'false') {
-      return { end: index + 5, value: false };
+      return { 
+        end: index + 5, 
+        value: false, 
+        node: { 
+          type: 'Literal', 
+          start: index,
+          end: index + 5,
+          value: false,
+          raw: 'false'
+        } 
+      };
     }
     return undefined;
   },
@@ -35,11 +64,24 @@ const definitions: Record<string, RegExp|Syntax> = {
       return undefined;
     }
 
-    return { end, value: code.slice(index + 1, end - 1) };
+    const value = code.slice(index + 1, end - 1);
+
+    return { 
+      end, 
+      value,
+      node: {
+        type: 'Literal',
+        start: index,
+        end,
+        value,
+        raw: `'${value}'`
+      }
+    };
   },
   'Float': (code, index) => {
     let value = '';
     let matched = false;
+    const start = index;
     while (index < code.length) {
       //get the character (and increment index afterwards)
       const char = code.charAt(index++);
@@ -56,7 +98,17 @@ const definitions: Record<string, RegExp|Syntax> = {
           return undefined;
         }
         //return where we ended
-        return { end: index - 1, value: parseFloat(value) };
+        return { 
+          end: index - 1, 
+          value: parseFloat(value),
+          node: {
+            type: 'Literal',
+            start,
+            end: index - 1,
+            value: parseFloat(value),
+            raw: `${value}`
+          }
+        };
       }
       //add character to value
       value += char;
@@ -66,29 +118,59 @@ const definitions: Record<string, RegExp|Syntax> = {
     //no more code...
     //did it end with a match?
     return matched && value.length
-      ? { end: index, value: parseFloat(value) }
-      : undefined;
+      ? { 
+        end: index, 
+        value: parseFloat(value) ,
+        node: {
+          type: 'Literal',
+          start,
+          end: index,
+          value: parseFloat(value),
+          raw: `${value}`
+        }
+      } : undefined;
   },
   'Integer': (code, index) => {
     if (!/^[0-9]$/.test(code.charAt(index))) {
       return undefined;
     }
-
+    const start = index;
     let value = code.charAt(index);
     while (index < code.length) {
       const char = code.charAt(++index);
       if (!/^[0-9]+$/.test(value + char)) {
-        return { end: index - 1, value: parseInt(value) };
+        return { 
+          end: index - 1, 
+          value: parseInt(value),
+          node: {
+            type: 'Literal',
+            start,
+            end: index - 1,
+            value: parseInt(value),
+            raw: `${value}`
+          }
+        };
       }
       value += char;
     }
     
     if (/^[0-9]+$/.test(value)) {
-      return { end: index, value: parseInt(value) };
+      return { 
+        end: index, 
+        value: parseInt(value),
+        node: {
+          type: 'Literal',
+          start,
+          end: index,
+          value: parseInt(value),
+          raw: `${value}`
+        }
+      };
     }
     return undefined;
   },
   'Array': (code, index, lexer) => {
+    const elements: Node[] = [];
     const array: any[] = [];
     const subparser = lexer.clone().load(code, index);
     try {
@@ -98,16 +180,29 @@ const definitions: Record<string, RegExp|Syntax> = {
         const value = subparser.expect(args);
         subparser.optional('whitespace');
         array.push(value.value);
+        if (typeof value.node !== 'undefined') {
+          elements.push(value.node);
+        }
       }
       subparser.expect(']');
     } catch(e) {
       return undefined;
     }
     
-    return { end: subparser.index, value: array };
+    return { 
+      end: subparser.index, 
+      value: array,
+      node: {
+        type: 'ArrayExpression',
+        start: index,
+        end: subparser.index,
+        elements
+      }
+    };
   },
   'ObjectKey': /^[a-z0-9_]+$/i,
   'Object': (code, index, lexer) => {
+    const properties: any[] = [];
     const object: Record<string, any> = {};
     const subparser = lexer.clone().load(code, index);
     try {
@@ -119,12 +214,35 @@ const definitions: Record<string, RegExp|Syntax> = {
         const value = subparser.expect(args);
         subparser.optional('whitespace');
         object[key.value] = value.value;
+        if (typeof value.node !== 'undefined') {
+          properties.push({
+            type: 'Property',
+            start: key.start,
+            end: value.node.end,
+            key: {
+              type: 'Identifier',
+              start: key.start,
+              end: key.end,
+              name: key.value
+            },
+            value: value.node
+          });
+        }
       }
       subparser.expect('}');
     } catch(e) {
       return undefined;
     }
-    return { end: subparser.index, value: object };
+    return { 
+      end: subparser.index, 
+      value: object,
+      node: {
+        type: 'ObjectExpression',
+        start: index,
+        end: subparser.index,
+        properties
+      }
+    };
   }
 };
 

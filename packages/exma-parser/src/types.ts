@@ -8,12 +8,15 @@ export interface LexerInterface {
   load(code: string, index: number): this;
   match(code: string, start: number, names?: string[]): Token[];
   next(names: string | string[]): boolean;
-  node<T extends Node = Node>(token: Token, withBody?: boolean): T;
   optional(names: string | string[]): Token | undefined;
   read(): Token | undefined
 }
 
-export type Match = { end: number, value: any };
+export type Match = { 
+  end: number;
+  value: any;
+  node?: Node;
+};
 export type Syntax = (
   code: string, 
   start: number, 
@@ -31,38 +34,24 @@ export type Token = {
   value: any;
   start: number;
   end: number;
+  node?: Node;
 };
 
 export type Node = {
   type: string;
-  value: any;
   start: number;
   end: number;
-  params?: Node[];
+  name?: string;
+  key?: Node;
+  init?: Node;
+  value?: any;
+  raw?: string;
+  properties?: Node[];
   body?: Node[];
-};
-
-export type NodeWithBody = {
-  type: string;
-  value: any;
-  start: number;
-  end: number;
-  body: Node[];
-};
-
-export type NodeWithParams = {
-  type: string;
-  value: string;
-  start: number;
-  end: number;
-  params: Node[];
-};
-
-export type NodeWithParamsBody = {
-  type: string;
-  value: string;
-  start: number;
-  end: number;
-  params: Node[];
-  body: Node[];
+  declarations?: Node[];
+  id?: Node;
+  kind?: string;
+  method?: boolean;
+  shorthand?: boolean;
+  computed?: boolean;
 };

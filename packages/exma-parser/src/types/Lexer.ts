@@ -1,6 +1,5 @@
 //types
 import type { 
-  Node,
   Token,
   Syntax, 
   Definition, 
@@ -144,9 +143,9 @@ export default class Lexer implements LexerInterface {
       //end is greater than start
       if (results && results.end > start) {
         //get the value
-        const { value, end } = results;
+        const { value, end, node } = results;
         //add to matches
-        matches.push({ name: label || name, value, start, end });
+        matches.push({ name: label || name, value, start, end, node });
       }
     }
     return matches;
@@ -165,28 +164,6 @@ export default class Lexer implements LexerInterface {
       this._index = start;
       return false;
     }
-  }
-
-  /**
-   * Converts a token into an AST node
-   */
-  public node<T extends Node = Node>(token: Token, withBody = false) {
-    const definition = this.get(token.name);
-    if (!definition) {
-      throw Exception.for('Unknown definition %s', token.name);
-    }
-    const node = {
-      type: token.name,
-      value: token.value,
-      start: token.start,
-      end: token.end
-    } as T;
-
-    if (withBody) {
-      node.body = [];
-    }
-
-    return node as T;
   }
 
   /**

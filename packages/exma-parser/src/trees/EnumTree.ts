@@ -1,8 +1,5 @@
 //types
-import type {
-  Node,
-  NodeWithBody
-} from '../types';
+import type { Node } from '../types';
 
 import Lexer from '../types/Lexer';
 
@@ -10,7 +7,7 @@ import AbstractTree from './AbstractTree';
 
 import { args } from '../definitions';
 
-export default class TypeTree extends AbstractTree<NodeWithBody> {
+export default class TypeTree extends AbstractTree {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
@@ -23,14 +20,14 @@ export default class TypeTree extends AbstractTree<NodeWithBody> {
   /**
    * (Main) Builds the syntax tree
    */
-  static parse(code: string, start: number = 0) {
+  static parse(code: string, start = 0) {
     return new this().parse(code, start);
   }
 
   /**
    * Builds the enum syntax
    */
-  parse(code: string, start: number = 0): NodeWithBody {
+  parse(code: string, start = 0) {
     this._lexer.load(code, start);
     return this.enum();
   }
@@ -38,12 +35,12 @@ export default class TypeTree extends AbstractTree<NodeWithBody> {
   /**
    * Builds the enum syntax
    */
-  enum(): NodeWithBody {
+  enum() {
     //enum
     const type = this._lexer.expect('EnumWord');
     this._lexer.expect('whitespace');
     //enum Foobar
-    const value = this._lexer.expect('EnumIdentifier');
+    const name = this._lexer.expect('EnumIdentifier');
     this._lexer.expect('whitespace');
     //enum Foobar {
     this._lexer.expect('{');
@@ -53,7 +50,7 @@ export default class TypeTree extends AbstractTree<NodeWithBody> {
     //  FOO "bar"
     //  ...
     while(this._lexer.next('EnumPropertyIdentifier')) {
-      props.push(...this.property());
+      props.push(this.property());
     }
     //enum Foobar {
     //  FOO "bar"
@@ -62,38 +59,64 @@ export default class TypeTree extends AbstractTree<NodeWithBody> {
     this._lexer.expect('}');
   
     return {
-      type: type.value,
-      value: value.value,
+      type: 'VariableDeclaration',
+      kind: 'enum',
       start: type.start,
       end: this._lexer.index,
-      body: props
+      declarations: [
+        {
+          type: 'VariableDeclarator',
+          start: name.start,
+          end: this._lexer.index,
+          id: {
+            type: 'Identifier',
+            start: name.start,
+            end: name.end,
+            name: name.value
+          },
+          init: {
+            type: 'ObjectExpression',
+            start: type.start,
+            end: this._lexer.index,
+            properties: props
+          }
+        }
+      ]
     };
   }
 
   /**
    * Builds the property syntax
    */
-  property(): Node[] {
+  property(): Node {
     //FOO
-    const type = this._lexer.expect('EnumPropertyIdentifier');
+    const id = this._lexer.expect('EnumPropertyIdentifier');
     this._lexer.expect('whitespace');
     //FOO "bar"
     const value = this._lexer.expect(args);
     this._lexer.expect('whitespace');
     this.noncode();
-    return [
-      {
-        type: type.name,
-        value: type.value,
-        start: type.start,
-        end: type.end
+    return {
+      type: 'Property',
+      kind: 'init' as 'init',
+      start: id.start,
+      end: value.end,
+      method: false,
+      shorthand: false,
+      computed: false,
+      key: {
+        type: 'Identifier',
+        start: id.start,
+        end: id.end,
+        name: id.value
       },
-      {
-        type: value.name,
-        value: value.value,
+      value: {
+        type: 'Literal',
         start: value.start,
-        end: value.end
+        end: value.end,
+        value: value.value
+
       }
-    ];
+    };
   }
 };
