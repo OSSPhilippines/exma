@@ -105,7 +105,7 @@ With the specifications above the following examples are valid syntax.
 
 ### 1.1. Prop
 
-A prop is a variable that can be defined and referenced within props 
+A prop is a variable that can be defined and referenced in other props 
 and attributes. The following are valid prop definitions.
 
 ```js
@@ -133,19 +133,9 @@ model User {
 
 > In Exma we removed the need to add colons and commas.
 
-Props cannot be used as property types. The following is invalid.
-
-```js
-prop Input { type "text" placeholder null hidden false }
-
-model User {
-  name Input
-}
-```
-
 ### 1.2. Enum
 
-Unlike a prop, an enum can be used as a property type
+Unlike a prop, an enum can be used as a property type.
 
 ```js
 enum Roles {
@@ -165,10 +155,10 @@ A composite type is used to define specifics of a JSON column in a model.
 
 ```js
 type Address @label("Address", "Addresses") {
-  street  string    @field.input(Text) @is.required @list.hide
-  city    string    @field.input(Text) @is.required
-  country string    @field.select(Countries) @is.option(Countries) @view.text(Uppercase)
-  postal  string    @field.input(Text) @is.required
+  street  String    @field.input(Input) @is.required @list.hide
+  city    String    @field.input(Input) @is.required
+  country String    @field.select(Countries) @is.option(Countries) @view.text(Uppercase)
+  postal  String    @field.input(Input) @is.required
 }
 ```
 
@@ -183,16 +173,16 @@ It uses props and types.
 
 ```js
 model User @label("User" "Users") {
-  id       string       @label("ID")         @id @default("nanoid(20)")
-  username string       @label("Username")   @searchable @field.input(Text) @is.required
-  password string       @label("Password")   @field.password @is.required @list.hide @view.hide
+  id       String       @label("ID")         @id @default("nanoid(20)")
+  username String       @label("Username")   @searchable @field.input(Input) @is.required
+  password String       @label("Password")   @field.password @is.required @list.hide @view.hide
   role     Roles        @label("Role")       @filterable @field.select @list.text(Uppercase) @view.text(Uppercase)
   address  Address?     @label("Address")    @list.hide
-  age      number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
-  salary   number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
-  balance  number       @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
-  bio      text         @label("Bio")        @field.markdown
-  active   boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
+  age      Number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
+  salary   Number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
+  balance  Number       @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
+  bio      Text         @label("Bio")        @field.markdown
+  active   Boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
   created  Date         @label("Created")    @default("now()") @filterable @sortable @list.date(Pretty)
   updated  Date         @label("Updated")    @default("updated()") @filterable @sortable @list.date(Pretty)
   company  Company?     @label("My Company") 

@@ -54,14 +54,8 @@ flexible syntax that any generator can use as a basis to render code.
 At this point, Exma does not care how generators use the final 
 parsed code.
 
-## 1.1. Objects
-
-Objects are a collection hash of properties. In Exma modeling, 
-everything can be classified as an object of some sort. Objects are 
-defined as the following.
-
 ```
-[object type] [object name] [..object attributes]? {
+[enum|prop|type|model] [name] [..attributes]? {
   [property name] [property type]? [..property attributes]?
 }
 ```
@@ -72,110 +66,125 @@ of separations. Also the syntax simplifies defining objects and arrays
 using only curly braces (`{}`).
 
 
- - `[object type]` - any phrase matching `^[a-z]+$` 
+ - `[enum|prop|type|model]` - any phrase matching `enum|prop|type|model` 
    - **Required**
-   - only small letters
-   - ex. `enum`, `type`, `object`, `props`, `model`, ..
- - `[object name]` - any phrase matching `^[a-zA-Z0-9_]+$`
+   - ex. `enum`, `type`, `props`, `model`
+ - `[name]` - a capital and camel phrase matching `^[A-Z][a-zA-Z0-9_]*$`
    - **Required**
    - no spaces or special characters
-   - ex. `Roles`, `Country`, `level_1`, ..
- - `[..object attributes]` - an attribute phrase 
+   - ex. `Roles`, `CountryName`, `Level_1`, ..
+ - `[..attributes]` - an attribute phrase 
    - **Optional**
-   - matching `^@[a-zA-Z0-9_\.]+$` if a flag resolving to `true`
-   - matching `^@[a-zA-Z0-9_\.]+\([^\)]\)$` if a function accepting 
-     the following separated by commas:
-     - `[object name]`
+   - matching `^@[a-z](\.?[a-z0-9_]+)*$` if resolving to `true`
+   - matching `^@[a-z](\.?[a-z0-9_]+)*\([^\)]\)$` if a function accepting 
+     the following:
+     - `[name]` - An prop name reference
      - Strings denoted with quotes like `"foo"`
      - Other scalars including number, boolean, null
-   - ex. `@label("Address", "Addresses") @searchable @field.input(Text)`
- - `[property name]` - any phrase matching `^[a-zA-Z0-9_]+$`
+   - ex. `@label("Address" "Addresses") @searchable @field.input(Text)`
+ - `[property name]` - any camel phrase matching `^[a-z_][a-zA-Z0-9_]*$`
    - **Required**
    - no spaces or special characters
-   - ex. `Roles`, `Country`, `level_1`, ..
- - `[property type]` - any phrase matching anything 
+   - ex. `id`, `firstName`, `level_1`, ..
+ - `[property type]` - any Capitalized phrase 
    - **Optional**
-   - only small letters
-   - ex. `enum`, `type`, `object`, `props`, `model`, ..
+   - Should be capitalized
+   - Can optionally end with `?` or `[]`
+   - ex. `String`, `Boolean?`, `Number[]`, `Roles`, ..
  - `[..property attributes]` - an attribute phrase 
    - **Optional**
-   - matching `^@[a-zA-Z0-9_\.]+$` if a flag resolving to `true`
-   - matching `^@[a-zA-Z0-9_\.]+\([^\)]\)$` if a function accepting 
-     the following separated by commas:
-     - `[object name]`
+   - matching `^@[a-z](\.?[a-z0-9_]+)*$` if resolving to `true`
+   - matching `^@[a-z](\.?[a-z0-9_]+)*\([^\)]\)$` if a function accepting 
+     the following:
+     - `[name]` - An prop name reference
      - Strings denoted with quotes like `"foo"`
      - Other scalars including number, boolean, null
    - ex. `@label("Address", "Addresses") @searchable @field.input(Text)`
 
 With the specifications above the following examples are valid syntax.
 
-### Example 1. Enum
+### 1.1. Prop
+
+A prop is a variable that can be defined and referenced in other props 
+and attributes. The following are valid prop definitions.
 
 ```js
-enum Roles {
-  ADMIN
-  MANAGER
-  USER
-}
-```
+prop Input { type "text" placeholder null hidden false }
 
-### Example 2. Enum Literal
+prop Shirts { sizes ["xl" "sm" "md"] price 100.50 }
 
-```js
-enum Roles {
-  ADMIN "Admin"
-  MANAGER "Manager"
-  USER "User"
-}
-```
+prop Price { min 0 max 100 step 0.01 }
 
-### Example 3. Props
-
-```js
 props Countries {
-  options {
+  options [
     { label "United States" value "US" }
     { label "Mexico" value "MX" }
     { label "Canada" value "CA" }
-  }
+  ]
+}
+
+model User {
+  name String @field.input(Input)
+  ...
 }
 ```
 
-### Example 4. Type
+> In Exma we only use double quotes.
+
+> In Exma we removed the need to add colons and commas.
+
+### 1.2. Enum
+
+Unlike a prop, an enum can be used as a property type.
 
 ```js
-type Text {
-  type "text"
+enum Roles {
+  ADMIN "admin"
+  MANAGER "manager"
+  USER "user"
+}
+
+model User {
+  roles Roles
 }
 ```
 
-### Example 5. Object
+### 1.3. Type
+
+A composite type is used to define specifics of a JSON column in a model.
 
 ```js
-object Address @label("Address", "Addresses") {
-  street  string    @field.input(Text) @is.required @list.hide
-  city    string    @field.input(Text) @is.required
-  country string(2) @field.select(Countries) @is.option(Countries) @view.text(Uppercase)
-  postal  string    @field.input(Text) @is.required
+type Address @label("Address", "Addresses") {
+  street  String    @field.input(Input) @is.required @list.hide
+  city    String    @field.input(Input) @is.required
+  country String    @field.select(Countries) @is.option(Countries) @view.text(Uppercase)
+  postal  String    @field.input(Input) @is.required
 }
 ```
 
-### Example 6. Schema
+> Attributes in both types and models are free form, meaning you can 
+arbitrarily make up attributes. Each generator should provide which 
+attributes it uses however.
+
+### 1.4. Model
+
+A model is a representation of a database table or collection. 
+It uses props and types.
 
 ```js
-model User @label("User", "Users") {
-  id       string       @label("ID")         @id @default("nanoid(20)")
-  username string       @label("Username")   @searchable @field.input(Text) @is.required
-  password string       @label("Password")   @field.password @is.required @list.hide @view.hide
+model User @label("User" "Users") {
+  id       String       @label("ID")         @id @default("nanoid(20)")
+  username String       @label("Username")   @searchable @field.input(Input) @is.required
+  password String       @label("Password")   @field.password @is.required @list.hide @view.hide
   role     Roles        @label("Role")       @filterable @field.select @list.text(Uppercase) @view.text(Uppercase)
   address  Address?     @label("Address")    @list.hide
-  age      number(3)    @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
-  salary   number(10,2) @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
-  balance  number       @label("Balance")    @filterable @sortable @field.number({ step 0.01 }) @list.number({ step 0.01 }) @view.number
-  bio      text         @label("Bio")        @field.markdown
-  active   boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
-  created  Date         @label("Created")    @default(now()) @filterable @sortable @list.date(Pretty)
-  updated  Date         @label("Updated")    @default(updated()) @filterable @sortable @list.date(Pretty)
+  age      Number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
+  salary   Number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
+  balance  Number       @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
+  bio      Text         @label("Bio")        @field.markdown
+  active   Boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
+  created  Date         @label("Created")    @default("now()") @filterable @sortable @list.date(Pretty)
+  updated  Date         @label("Updated")    @default("updated()") @filterable @sortable @list.date(Pretty)
   company  Company?     @label("My Company") 
 }
 ```
