@@ -256,7 +256,7 @@ const definitions: Record<string, Reader> = {
     };
   },
   'AnyIdentifier': (code, index) => identifier(
-    /^[a-z_][a-z0-9_]*$/, 
+    /^[a-z_][a-z0-9_]*$/i, 
     code, 
     index
   ),

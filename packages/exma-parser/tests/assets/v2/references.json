@@ -112,6 +112,14 @@
       }
     }
   },
+  "generator": {
+    "./custom-generator": {
+      "previewFeatures": [
+        "fullTextSearch"
+      ],
+      "provider": "custom-client-js"
+    }
+  },
   "model": {
     "User": {
       "attributes": {

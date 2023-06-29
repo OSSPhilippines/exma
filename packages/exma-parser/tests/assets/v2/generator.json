@@ -1,0 +1,69 @@
+{
+  "type": "VariableDeclaration",
+  "kind": "generator",
+  "start": 0,
+  "end": 101,
+  "declarations": [
+    {
+      "type": "VariableDeclarator",
+      "start": 10,
+      "end": 101,
+      "id": {
+        "type": "Identifier",
+        "start": 10,
+        "end": 30,
+        "name": "./custom-generator"
+      },
+      "init": {
+        "type": "ObjectExpression",
+        "start": 31,
+        "end": 101,
+        "properties": [
+          {
+            "type": "Property",
+            "start": 35,
+            "end": 62,
+            "key": {
+              "type": "Identifier",
+              "start": 35,
+              "end": 43,
+              "name": "provider"
+            },
+            "value": {
+              "type": "Literal",
+              "start": 44,
+              "end": 62,
+              "value": "custom-client-js",
+              "raw": "'custom-client-js'"
+            }
+          },
+          {
+            "type": "Property",
+            "start": 65,
+            "end": 99,
+            "key": {
+              "type": "Identifier",
+              "start": 65,
+              "end": 80,
+              "name": "previewFeatures"
+            },
+            "value": {
+              "type": "ArrayExpression",
+              "start": 81,
+              "end": 99,
+              "elements": [
+                {
+                  "type": "Literal",
+                  "start": 82,
+                  "end": 98,
+                  "value": "fullTextSearch",
+                  "raw": "'fullTextSearch'"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

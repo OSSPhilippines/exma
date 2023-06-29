@@ -48,11 +48,27 @@ export default class Compiler {
     }
     //ex. Roles
     const name = token.declarations?.[0].id?.name as string;
-    const value: Record<string, Scalar> = {};
+    const value: Record<string, T> = {};
     token.declarations[0].init.properties.forEach(property => {
       value[property.key.name] = (property.value as LiteralToken).value;
     });
     return [ name, value ] as [ string, Record<string, T> ];
+  }
+
+  /**
+   * Converts an generator tree into a json version
+   */
+  static generator<T = any>(token: DeclarationToken) {
+    if (token.kind !== 'generator') {
+      throw Exception.for('Invalid Generator');
+    }
+    //ex. ./custom-generator
+    const name = token.declarations?.[0].id?.name as string;
+    const value: Record<string, any> = {};
+    token.declarations[0].init.properties.forEach(property => {
+      value[property.key.name] = this.data(property.value);
+    });
+    return [ name, value ] as [ string, T ];
   }
 
   /**
@@ -176,6 +192,14 @@ export default class Compiler {
           finalize ? references: false
         );
         json.model[key] = value;
+        if (references[key]) {
+          throw Exception.for('Duplicate %s', key);
+        }
+        references[key] = value;
+      } else if (declaration.kind === 'generator') {
+        json.generator = json.generator || {};
+        const [ key, value ] = this.generator(declaration);
+        json.generator[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }

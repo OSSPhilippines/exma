@@ -1,0 +1,4 @@
+generator "./custom-generator" {
+  provider "custom-client-js"
+  previewFeatures ["fullTextSearch"]
+}

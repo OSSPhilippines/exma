@@ -1,3 +1,8 @@
+generator "./custom-generator" {
+  provider "custom-client-js"
+  previewFeatures ["fullTextSearch"]
+}
+
 prop Text { type "text" }
 prop Uppercase { format "uppercase" }
 prop Pretty { format "pretty" }
