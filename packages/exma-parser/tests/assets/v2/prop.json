@@ -1,6 +1,6 @@
 {
   "type": "VariableDeclaration",
-  "kind": "props",
+  "kind": "prop",
   "start": 0,
   "end": 179,
   "declarations": [

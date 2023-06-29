@@ -1,7 +1,10 @@
 import fs from 'fs';
 import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import { expect, use } from 'chai';
+import deepEqualInAnyOrder from 'deep-equal-in-any-order';
 import EnumTree from '../src/trees/EnumTree';
+
+use(deepEqualInAnyOrder);
 
 describe('Enum Tree', () => {
   it('Should parse Enums', async () => {

@@ -6,7 +6,7 @@ model User @label("User" "Users") {
   address  Address?     @label("Address")    @list.hide
   age      Number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
   salary   Number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
-  balance  Number       @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
+  balance  Number[]     @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
   bio      Text         @label("Bio")        @field.markdown
   active   Boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
   created  Date         @label("Created")    @default("now()") @filterable @sortable @list.date(Pretty)

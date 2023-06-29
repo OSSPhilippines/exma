@@ -1,0 +1,334 @@
+{
+  "prop": {
+    "Text": {
+      "type": "text"
+    },
+    "Uppercase": {
+      "format": "uppercase"
+    },
+    "Pretty": {
+      "format": "pretty"
+    },
+    "Shirts": {
+      "sizes": [
+        "xl",
+        "sm",
+        "md"
+      ]
+    },
+    "Age": {
+      "min": 0,
+      "max": 110
+    },
+    "Price": {
+      "min": 0
+    },
+    "Countries": {
+      "options": [
+        {
+          "label": "United States",
+          "value": "US"
+        },
+        {
+          "label": "Mexico",
+          "value": "MX"
+        },
+        {
+          "label": "Canada",
+          "value": "CA"
+        }
+      ]
+    }
+  },
+  "enum": {
+    "Roles": {
+      "ADMIN": "Admin",
+      "MANAGER": "Manager",
+      "USER": "User"
+    }
+  },
+  "type": {
+    "Address": {
+      "attributes": {
+        "label": [
+          "Address",
+          "Addresses"
+        ]
+      },
+      "columns": {
+        "street": {
+          "type": "String",
+          "attributes": {
+            "field.input": [
+              "${Text}"
+            ],
+            "is.required": true,
+            "list.hide": true
+          },
+          "required": true,
+          "multiple": false
+        },
+        "city": {
+          "type": "String",
+          "attributes": {
+            "field.input": [
+              "${Text}"
+            ],
+            "is.required": true
+          },
+          "required": false,
+          "multiple": false
+        },
+        "country": {
+          "type": "String",
+          "attributes": {
+            "field.select": [
+              "${Countries}"
+            ],
+            "is.option": [
+              "${Countries}"
+            ],
+            "list.text": [
+              "${Uppercase}"
+            ],
+            "view.text": [
+              "${Uppercase}"
+            ]
+          },
+          "required": true,
+          "multiple": false
+        },
+        "postal": {
+          "type": "String",
+          "attributes": {
+            "field.input": [
+              "${Text}"
+            ],
+            "is.required": true
+          },
+          "required": true,
+          "multiple": false
+        }
+      }
+    }
+  },
+  "model": {
+    "User": {
+      "attributes": {
+        "label": [
+          "User",
+          "Users"
+        ]
+      },
+      "columns": {
+        "id": {
+          "type": "String",
+          "attributes": {
+            "label": [
+              "ID"
+            ],
+            "id": true,
+            "default": [
+              "nanoid(20)"
+            ]
+          },
+          "required": true,
+          "multiple": false
+        },
+        "username": {
+          "type": "String",
+          "attributes": {
+            "label": [
+              "Username"
+            ],
+            "searchable": true,
+            "field.input": [
+              "${Text}"
+            ],
+            "is.required": true
+          },
+          "required": true,
+          "multiple": false
+        },
+        "password": {
+          "type": "String",
+          "attributes": {
+            "label": [
+              "Password"
+            ],
+            "field.password": true,
+            "is.clt": [
+              80
+            ],
+            "is.cgt": [
+              8
+            ],
+            "is.required": true,
+            "list.hide": true,
+            "view.hide": true
+          },
+          "required": true,
+          "multiple": false
+        },
+        "role": {
+          "type": "Roles",
+          "attributes": {
+            "label": [
+              "Role"
+            ],
+            "filterable": true,
+            "field.select": true,
+            "list.text": [
+              "${Uppercase}"
+            ],
+            "view.text": [
+              "${Uppercase}"
+            ]
+          },
+          "required": true,
+          "multiple": false
+        },
+        "address": {
+          "type": "Address",
+          "attributes": {
+            "label": [
+              "Address"
+            ],
+            "list.hide": true
+          },
+          "required": false,
+          "multiple": false
+        },
+        "age": {
+          "type": "Number",
+          "attributes": {
+            "label": [
+              "Age"
+            ],
+            "unsigned": true,
+            "filterable": true,
+            "sortable": true,
+            "field.number": [
+              "${Age}"
+            ],
+            "is.gt": [
+              0
+            ],
+            "is.lt": [
+              150
+            ]
+          },
+          "required": true,
+          "multiple": false
+        },
+        "salary": {
+          "type": "Number",
+          "attributes": {
+            "label": [
+              "Salary"
+            ],
+            "insigned": true,
+            "filterable": true,
+            "sortable": true,
+            "field.number": [
+              "${Price}"
+            ],
+            "list.number": true,
+            "view.number": true
+          },
+          "required": true,
+          "multiple": false
+        },
+        "balance": {
+          "type": "Number",
+          "attributes": {
+            "label": [
+              "Balance"
+            ],
+            "filterable": true,
+            "sortable": true,
+            "field.number": true,
+            "list.number": true,
+            "view.number": true
+          },
+          "required": true,
+          "multiple": true
+        },
+        "bio": {
+          "type": "Text",
+          "attributes": {
+            "label": [
+              "Bio"
+            ],
+            "field.markdown": true
+          },
+          "required": true,
+          "multiple": false
+        },
+        "active": {
+          "type": "Boolean",
+          "attributes": {
+            "label": [
+              "Active"
+            ],
+            "default": [
+              true
+            ],
+            "filterable": true,
+            "field.switch": true,
+            "list.yesno": true,
+            "view.yesno": true
+          },
+          "required": true,
+          "multiple": false
+        },
+        "created": {
+          "type": "Date",
+          "attributes": {
+            "label": [
+              "Created"
+            ],
+            "default": [
+              "now()"
+            ],
+            "filterable": true,
+            "sortable": true,
+            "list.date": [
+              "${Pretty}"
+            ]
+          },
+          "required": true,
+          "multiple": false
+        },
+        "updated": {
+          "type": "Date",
+          "attributes": {
+            "label": [
+              "Updated"
+            ],
+            "default": [
+              "updated()"
+            ],
+            "filterable": true,
+            "sortable": true,
+            "list.date": [
+              "${Pretty}"
+            ]
+          },
+          "required": true,
+          "multiple": false
+        },
+        "company": {
+          "type": "Company",
+          "attributes": {
+            "label": [
+              "My Company"
+            ]
+          },
+          "required": false,
+          "multiple": false
+        }
+      }
+    }
+  }
+}

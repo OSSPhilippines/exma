@@ -1,12 +1,25 @@
+import type { 
+  DeclarationToken, 
+  IdentifierToken, 
+  ObjectToken 
+} from '../types';
+
 import Lexer from '../types/Lexer';
+import { reader } from '../definitions';
+
 import AbstractTree from './AbstractTree';
+
 
 export default class PropTree extends AbstractTree {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
-    lexer.define('PropWord', /^prop$/, 'Type');
-    lexer.define('PropIdentifier', /^[a-z][a-z0-9_]*$/i, 'Identifier');
+    lexer.define('PropWord', (code, index) => reader(
+      '_PropWord', 
+      /^prop$/, 
+      code, 
+      index
+    ));
     return lexer;
   }
 
@@ -28,33 +41,28 @@ export default class PropTree extends AbstractTree {
   /**
    * Builds the prop syntax  
    */
-  prop() {
+  prop(): DeclarationToken {
     //prop
     const type = this._lexer.expect('PropWord');
     this._lexer.expect('whitespace');
-    //enum Foobar
-    const name = this._lexer.expect('PropIdentifier');
+    //prop Foobar
+    const id = this._lexer.expect<IdentifierToken>('CapitalIdentifier');
     this._lexer.expect('whitespace');
-    //enum Foobar {
-    const value = this._lexer.expect('Object');
+    //prop Foobar {
+    const init = this._lexer.expect<ObjectToken>('Object');
   
     return {
       type: 'VariableDeclaration',
-      kind: 'props',
+      kind: 'prop',
       start: type.start,
-      end: value.end,
+      end: init.end,
       declarations: [
         {
           type: 'VariableDeclarator',
-          start: name.start,
-          end: value.end,
-          id: {
-            type: 'Identifier',
-            name: name.value as string,
-            start: name.start,
-            end: name.end
-          },
-          init: value.node
+          start: id.start,
+          end: init.end,
+          id,
+          init
         }
       ]
     };

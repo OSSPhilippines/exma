@@ -1,19 +1,26 @@
 //types
-import type { Node } from '../types';
+import type { 
+  LiteralToken, 
+  PropertyToken, 
+  IdentifierToken,
+  DeclarationToken 
+} from '../types';
 
 import Lexer from '../types/Lexer';
+import { scalar, reader } from '../definitions';
 
 import AbstractTree from './AbstractTree';
-
-import { args } from '../definitions';
 
 export default class TypeTree extends AbstractTree {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
-    lexer.define('EnumWord', /^enum$/, 'Type');
-    lexer.define('EnumIdentifier', /^[A-Z][a-zA-Z0-9_]*$/, 'Identifier');
-    lexer.define('EnumPropertyIdentifier', /^[A-Z][A-Z0-9_]*\?*$/, 'Identifier');
+    lexer.define('EnumWord', (code, index) => reader(
+      '_EnumWord', 
+      /^enum$/, 
+      code, 
+      index
+    ));
     return lexer;
   }
 
@@ -35,21 +42,21 @@ export default class TypeTree extends AbstractTree {
   /**
    * Builds the enum syntax
    */
-  enum() {
+  enum(): DeclarationToken {
     //enum
     const type = this._lexer.expect('EnumWord');
     this._lexer.expect('whitespace');
     //enum Foobar
-    const name = this._lexer.expect('EnumIdentifier');
+    const id = this._lexer.expect<IdentifierToken>('CapitalIdentifier');
     this._lexer.expect('whitespace');
     //enum Foobar {
     this._lexer.expect('{');
     this.noncode();
-    const props: Node[] = [];
+    const props: PropertyToken[] = [];
     //enum Foobar {
     //  FOO "bar"
     //  ...
-    while(this._lexer.next('EnumPropertyIdentifier')) {
+    while(this._lexer.next('UpperIdentifier')) {
       props.push(this.property());
     }
     //enum Foobar {
@@ -66,14 +73,9 @@ export default class TypeTree extends AbstractTree {
       declarations: [
         {
           type: 'VariableDeclarator',
-          start: name.start,
+          start: id.start,
           end: this._lexer.index,
-          id: {
-            type: 'Identifier',
-            start: name.start,
-            end: name.end,
-            name: name.value
-          },
+          id,
           init: {
             type: 'ObjectExpression',
             start: type.start,
@@ -88,35 +90,24 @@ export default class TypeTree extends AbstractTree {
   /**
    * Builds the property syntax
    */
-  property(): Node {
+  property(): PropertyToken {
     //FOO
-    const id = this._lexer.expect('EnumPropertyIdentifier');
+    const key = this._lexer.expect<IdentifierToken>('UpperIdentifier');
     this._lexer.expect('whitespace');
     //FOO "bar"
-    const value = this._lexer.expect(args);
+    const value = this._lexer.expect<LiteralToken>(scalar);
     this._lexer.expect('whitespace');
     this.noncode();
     return {
       type: 'Property',
-      kind: 'init' as 'init',
-      start: id.start,
+      kind: 'init',
+      start: key.start,
       end: value.end,
       method: false,
       shorthand: false,
       computed: false,
-      key: {
-        type: 'Identifier',
-        start: id.start,
-        end: id.end,
-        name: id.value
-      },
-      value: {
-        type: 'Literal',
-        start: value.start,
-        end: value.end,
-        value: value.value
-
-      }
+      key,
+      value
     };
   }
 };

@@ -1,24 +1,44 @@
-
-import { Node } from '../types';
+import type { 
+  DataToken, 
+  DeclarationToken, 
+  IdentifierToken, 
+  LiteralToken, 
+  PropertyToken 
+} from '../types';
 
 import Lexer from '../types/Lexer';
+import { data, reader } from '../definitions';
 
 import AbstractTree from './AbstractTree';
 
-import { args } from '../definitions';
-
 export default class TypeTree extends AbstractTree {
-  static args = [ ...args, 'Reference' ];
+  static data = [ ...data, 'CapitalIdentifier' ];
 
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
-    lexer.define('Type', /^[A-Z][a-zA-Z0-9_]*\?{0,1}$/); 
-    lexer.define('TypeWord', /^type$/, 'Type');
-    lexer.define('TypeIdentifier', /^[A-Z][a-zA-Z0-9_]*$/, 'Identifier');
-    lexer.define('TypePropertyIdentifier', /^[a-z][a-zA-Z0-9_]*\?*$/, 'Identifier');
-    lexer.define('Parameter', /^@[a-z][a-z0-9_\.]*$/);
-    lexer.define('Reference', /^[A-Z][a-zA-Z0-9_]*$/);
+    lexer.define('Type', (code, index) => {
+      const regexp = /^[A-Z][a-zA-Z0-9_]*((\[\])|\?)?$/;
+      const results = reader('Literal', regexp, code, index);
+      if (results) {
+        const square = code.substring(
+          results.end, 
+          results.end + 2
+        );
+        if (results.end > index && square === '[]') {
+          results.end += 2;
+          results.value += square;
+        }
+        results.raw = `"${results.value}"`
+      }
+      return results;
+    }); 
+    lexer.define('TypeWord', (code, index) => reader(
+      '_TypeWord', 
+      /^type$/, 
+      code, 
+      index
+    ));
     return lexer;
   }
 
@@ -40,21 +60,19 @@ export default class TypeTree extends AbstractTree {
   /**
    * Builds the parameter syntax
    */
-  parameter() {
+  parameter(): PropertyToken {
     // @id
-    const param = this._lexer.expect('Parameter');
-    const elements: Node[] = [];
+    const key = this._lexer.expect<IdentifierToken>('AttributeIdentifier');
+    key.name = key.name.slice(1);
+    const elements: DataToken[] = [];
     if (this._lexer.next('(')) {
       // @id(
       this._lexer.expect('(');
       this.noncode();
       // @id("foo" "bar"
-      const args = (this.constructor as typeof TypeTree).args;
-      while(this._lexer.next(args)) {
-        const arg = this._lexer.expect(args);
-        if (typeof arg.node !== 'undefined') {
-          elements.push(arg.node);
-        }
+      const data = (this.constructor as typeof TypeTree).data;
+      while(this._lexer.next(data)) {
+        elements.push(this._lexer.expect<DataToken>(data));
         this.noncode();
       }
       // @id("foo" "bar")
@@ -63,22 +81,21 @@ export default class TypeTree extends AbstractTree {
     //assuming no args
     return {
       type: 'Property',
-      start: param.start,
+      kind: 'init',
+      start: key.start,
       end: this._lexer.index,
-      key: {
-        type: 'Identifier',
-        start: param.start,
-        end: param.end,
-        value: param.value.slice(1)
-      },
+      method: false,
+      shorthand: false,
+      computed: false,
+      key,
       value: elements.length ? {
         type: 'ArrayExpression',
-        start: param.start,
+        start: key.start,
         end: this._lexer.index,
         elements
       } : {
         type: 'Literal',
-        start: param.start,
+        start: key.start,
         end: this._lexer.index,
         value: true,
         raw: 'true'
@@ -89,78 +106,68 @@ export default class TypeTree extends AbstractTree {
   /**
    * Builds the property syntax
    */
-  property() {
+  property(): PropertyToken {
     //foo
-    const value = this._lexer.expect('TypePropertyIdentifier');
+    const key = this._lexer.expect<IdentifierToken>('CamelIdentifier');
     this._lexer.expect('whitespace');
     //foo String
-    const type = this._lexer.expect('Type');
+    const value = this._lexer.expect<LiteralToken>('Type');
     this._lexer.expect('whitespace');
-    const params: Node[] = [];
+    const properties: PropertyToken[] = [];
     //foo String @id("foo" "bar") ...
-    while(this._lexer.next('Parameter')) {
-      params.push(this.parameter());
+    while(this._lexer.next('AttributeIdentifier')) {
+      properties.push(this.parameter());
       this.noncode();
     }
     return {
       type: 'Property',
-      start: value.start,
+      kind: 'init',
+      start: key.start,
       end: this._lexer.index,
       method: false,
       shorthand: false,
       computed: false,
-      key: {
-        type: 'Identifier',
-        start: value.start,
-        end: value.end,
-        name: value.value //foo
-      },
+      key,
       value: {
         type: 'ObjectExpression',
-        start: type.start,
+        start: value.start,
         end: this._lexer.index,
         properties: [
           {
             type: 'Property',
-            kind: 'init' as 'init',
-            start: type.start,
-            end: type.end,
+            kind: 'init',
+            start: value.start,
+            end: value.end,
             method: false,
             shorthand: false,
             computed: false,
             key: {
               type: 'Identifier',
-              start: type.start,
-              end: type.end,
+              start: value.start,
+              end: value.end,
               name: 'type',
             },
-            value: {
-              type: 'Literal',
-              start: type.start,
-              end: type.end,
-              value: type.value, //String
-              raw: `"${type.value}"`
-            }
+            value
           },
           {
             type: 'Property',
-            kind: 'init' as 'init',
-            start: type.start,
+            kind: 'init',
+            start: value.start,
             end: this._lexer.index,
             method: false,
             shorthand: false,
             computed: false,
             key: {
               type: 'Identifier',
-              start: type.start,
-              end: type.end,
+              start: value.start,
+              end: value.end,
               name: 'attributes',
             },
             value: {
               type: 'ObjectExpression',
-              start: type.start,
-              end: type.end,
-              properties: params
+              start: value.start,
+              end: value.end,
+              properties
             }
           }
         ]
@@ -171,16 +178,16 @@ export default class TypeTree extends AbstractTree {
   /**
    * Builds the type syntax
    */
-  type() {
+  type(): DeclarationToken {
     //type
     const type = this._lexer.expect('TypeWord');
     this._lexer.expect('whitespace');
     //type Foobar
-    const name = this._lexer.expect('TypeIdentifier');
+    const id = this._lexer.expect<IdentifierToken>('CapitalIdentifier');
     this._lexer.expect('whitespace');
-    const properties: Node[] = [];
+    const properties: PropertyToken[] = [];
     //type Foobar @id("foo" "bar")
-    while(this._lexer.next('Parameter')) {
+    while(this._lexer.next('AttributeIdentifier')) {
       properties.push(this.parameter());
       this.noncode();
     }
@@ -188,11 +195,11 @@ export default class TypeTree extends AbstractTree {
     //type Foobar @id("foo" "bar") {
     this._lexer.expect('{');
     this.noncode();
-    const columns: Node[] = [];
+    const columns: PropertyToken[] = [];
     //type Foobar @id("foo" "bar") {
     //  foo String @id("foo" "bar")
     //  ...
-    while(this._lexer.next('TypePropertyIdentifier')) {
+    while(this._lexer.next('CamelIdentifier')) {
       columns.push(this.property());
     }
     //type Foobar @id("foo" "bar") {
@@ -210,12 +217,7 @@ export default class TypeTree extends AbstractTree {
         type: 'VariableDeclarator',
         start: type.start,
         end: this._lexer.index,
-        id: {
-          type: 'Identifier',
-          start: name.start,
-          end: name.end,
-          name: name.value //Address
-        },
+        id,
         init: {
           type: 'ObjectExpression',
           start: type.start,
@@ -223,6 +225,7 @@ export default class TypeTree extends AbstractTree {
           properties: [
             {
               type: 'Property',
+              kind: 'init',
               start: type.start,
               end: this._lexer.index,
               method: false,
@@ -243,6 +246,7 @@ export default class TypeTree extends AbstractTree {
             },
             {
               type: 'Property',
+              kind: 'init',
               start: type.start, 
               end: this._lexer.index,
               method: false,

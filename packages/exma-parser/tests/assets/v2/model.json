@@ -21,6 +21,7 @@
         "properties": [
           {
             "type": "Property",
+            "kind": "init",
             "start": 0,
             "end": 1270,
             "method": false,
@@ -39,13 +40,17 @@
               "properties": [
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 11,
                   "end": 33,
+                  "method": false,
+                  "shorthand": false,
+                  "computed": false,
                   "key": {
                     "type": "Identifier",
                     "start": 11,
                     "end": 17,
-                    "value": "label"
+                    "name": "label"
                   },
                   "value": {
                     "type": "ArrayExpression",
@@ -74,6 +79,7 @@
           },
           {
             "type": "Property",
+            "kind": "init",
             "start": 0,
             "end": 1270,
             "method": false,
@@ -92,6 +98,7 @@
               "properties": [
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 38,
                   "end": 110,
                   "method": false,
@@ -151,13 +158,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 60,
                               "end": 72,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 60,
                                 "end": 66,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -176,13 +187,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 81,
                               "end": 84,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 81,
                                 "end": 84,
-                                "value": "id"
+                                "name": "id"
                               },
                               "value": {
                                 "type": "Literal",
@@ -194,13 +209,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 85,
                               "end": 107,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 85,
                                 "end": 93,
-                                "value": "default"
+                                "name": "default"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -225,6 +244,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 110,
                   "end": 199,
                   "method": false,
@@ -284,13 +304,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 132,
                               "end": 150,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 132,
                                 "end": 138,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -309,13 +333,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 153,
                               "end": 164,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 153,
                                 "end": 164,
-                                "value": "searchable"
+                                "name": "searchable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -327,31 +355,45 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 165,
                               "end": 183,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 165,
                                 "end": 177,
-                                "value": "field.input"
+                                "name": "field.input"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 165,
                                 "end": 183,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 178,
+                                    "end": 182,
+                                    "name": "Text"
+                                  }
+                                ]
                               }
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 184,
                               "end": 196,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 184,
                                 "end": 196,
-                                "value": "is.required"
+                                "name": "is.required"
                               },
                               "value": {
                                 "type": "Literal",
@@ -369,6 +411,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 199,
                   "end": 318,
                   "method": false,
@@ -428,13 +471,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 221,
                               "end": 239,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 221,
                                 "end": 227,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -453,13 +500,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 242,
                               "end": 257,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 242,
                                 "end": 257,
-                                "value": "field.password"
+                                "name": "field.password"
                               },
                               "value": {
                                 "type": "Literal",
@@ -471,13 +522,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 258,
                               "end": 269,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 258,
                                 "end": 265,
-                                "value": "is.clt"
+                                "name": "is.clt"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -496,13 +551,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 270,
                               "end": 280,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 270,
                                 "end": 277,
-                                "value": "is.cgt"
+                                "name": "is.cgt"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -521,13 +580,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 281,
                               "end": 293,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 281,
                                 "end": 293,
-                                "value": "is.required"
+                                "name": "is.required"
                               },
                               "value": {
                                 "type": "Literal",
@@ -539,13 +602,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 294,
                               "end": 304,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 294,
                                 "end": 304,
-                                "value": "list.hide"
+                                "name": "list.hide"
                               },
                               "value": {
                                 "type": "Literal",
@@ -557,13 +624,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 305,
                               "end": 315,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 305,
                                 "end": 315,
-                                "value": "view.hide"
+                                "name": "view.hide"
                               },
                               "value": {
                                 "type": "Literal",
@@ -581,6 +652,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 318,
                   "end": 433,
                   "method": false,
@@ -640,13 +712,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 340,
                               "end": 354,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 340,
                                 "end": 346,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -665,13 +741,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 361,
                               "end": 372,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 361,
                                 "end": 372,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -683,13 +763,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 373,
                               "end": 386,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 373,
                                 "end": 386,
-                                "value": "field.select"
+                                "name": "field.select"
                               },
                               "value": {
                                 "type": "Literal",
@@ -701,38 +785,58 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 387,
                               "end": 408,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 387,
                                 "end": 397,
-                                "value": "list.text"
+                                "name": "list.text"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 387,
                                 "end": 408,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 398,
+                                    "end": 407,
+                                    "name": "Uppercase"
+                                  }
+                                ]
                               }
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 409,
                               "end": 430,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 409,
                                 "end": 419,
-                                "value": "view.text"
+                                "name": "view.text"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 409,
                                 "end": 430,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 420,
+                                    "end": 429,
+                                    "name": "Uppercase"
+                                  }
+                                ]
                               }
                             }
                           ]
@@ -743,6 +847,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 433,
                   "end": 489,
                   "method": false,
@@ -802,13 +907,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 455,
                               "end": 472,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 455,
                                 "end": 461,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -827,13 +936,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 476,
                               "end": 486,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 476,
                                 "end": 486,
-                                "value": "list.hide"
+                                "name": "list.hide"
                               },
                               "value": {
                                 "type": "Literal",
@@ -851,6 +964,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 489,
                   "end": 607,
                   "method": false,
@@ -910,13 +1024,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 511,
                               "end": 524,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 511,
                                 "end": 517,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -935,13 +1053,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 532,
                               "end": 541,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 532,
                                 "end": 541,
-                                "value": "unsigned"
+                                "name": "unsigned"
                               },
                               "value": {
                                 "type": "Literal",
@@ -953,13 +1075,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 542,
                               "end": 553,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 542,
                                 "end": 553,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -971,13 +1097,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 554,
                               "end": 563,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 554,
                                 "end": 563,
-                                "value": "sortable"
+                                "name": "sortable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -989,31 +1119,45 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 564,
                               "end": 582,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 564,
                                 "end": 577,
-                                "value": "field.number"
+                                "name": "field.number"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 564,
                                 "end": 582,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 578,
+                                    "end": 581,
+                                    "name": "Age"
+                                  }
+                                ]
                               }
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 583,
                               "end": 592,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 583,
                                 "end": 589,
-                                "value": "is.gt"
+                                "name": "is.gt"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1032,13 +1176,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 593,
                               "end": 604,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 593,
                                 "end": 599,
-                                "value": "is.lt"
+                                "name": "is.lt"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1063,6 +1211,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 607,
                   "end": 731,
                   "method": false,
@@ -1122,13 +1271,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 629,
                               "end": 645,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 629,
                                 "end": 635,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1147,13 +1300,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 650,
                               "end": 659,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 650,
                                 "end": 659,
-                                "value": "insigned"
+                                "name": "insigned"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1165,13 +1322,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 660,
                               "end": 671,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 660,
                                 "end": 671,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1183,13 +1344,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 672,
                               "end": 681,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 672,
                                 "end": 681,
-                                "value": "sortable"
+                                "name": "sortable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1201,31 +1366,45 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 682,
                               "end": 702,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 682,
                                 "end": 695,
-                                "value": "field.number"
+                                "name": "field.number"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 682,
                                 "end": 702,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 696,
+                                    "end": 701,
+                                    "name": "Price"
+                                  }
+                                ]
                               }
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 703,
                               "end": 715,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 703,
                                 "end": 715,
-                                "value": "list.number"
+                                "name": "list.number"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1237,13 +1416,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 716,
                               "end": 728,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 716,
                                 "end": 728,
-                                "value": "view.number"
+                                "name": "view.number"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1261,6 +1444,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 731,
                   "end": 842,
                   "method": false,
@@ -1281,22 +1465,22 @@
                         "type": "Property",
                         "kind": "init",
                         "start": 740,
-                        "end": 746,
+                        "end": 748,
                         "method": false,
                         "shorthand": false,
                         "computed": false,
                         "key": {
                           "type": "Identifier",
                           "start": 740,
-                          "end": 746,
+                          "end": 748,
                           "name": "type"
                         },
                         "value": {
                           "type": "Literal",
                           "start": 740,
-                          "end": 746,
-                          "value": "Number",
-                          "raw": "\"Number\""
+                          "end": 748,
+                          "value": "Number[]",
+                          "raw": "\"Number[]\""
                         }
                       },
                       {
@@ -1310,23 +1494,27 @@
                         "key": {
                           "type": "Identifier",
                           "start": 740,
-                          "end": 746,
+                          "end": 748,
                           "name": "attributes"
                         },
                         "value": {
                           "type": "ObjectExpression",
                           "start": 740,
-                          "end": 746,
+                          "end": 748,
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 753,
                               "end": 770,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 753,
                                 "end": 759,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1345,13 +1533,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 774,
                               "end": 785,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 774,
                                 "end": 785,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1363,13 +1555,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 786,
                               "end": 795,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 786,
                                 "end": 795,
-                                "value": "sortable"
+                                "name": "sortable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1381,13 +1577,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 796,
                               "end": 811,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 796,
                                 "end": 809,
-                                "value": "field.number"
+                                "name": "field.number"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1399,13 +1599,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 812,
                               "end": 826,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 812,
                                 "end": 824,
-                                "value": "list.number"
+                                "name": "list.number"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1417,13 +1621,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 827,
                               "end": 839,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 827,
                                 "end": 839,
-                                "value": "view.number"
+                                "name": "view.number"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1441,6 +1649,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 842,
                   "end": 903,
                   "method": false,
@@ -1500,13 +1709,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 864,
                               "end": 877,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 864,
                                 "end": 870,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1525,13 +1738,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 885,
                               "end": 900,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 885,
                                 "end": 900,
-                                "value": "field.markdown"
+                                "name": "field.markdown"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1549,6 +1766,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 903,
                   "end": 1013,
                   "method": false,
@@ -1608,13 +1826,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 925,
                               "end": 941,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 925,
                                 "end": 931,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1633,13 +1855,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 946,
                               "end": 960,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 946,
                                 "end": 954,
-                                "value": "default"
+                                "name": "default"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1658,13 +1884,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 961,
                               "end": 972,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 961,
                                 "end": 972,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1676,13 +1906,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 973,
                               "end": 986,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 973,
                                 "end": 986,
-                                "value": "field.switch"
+                                "name": "field.switch"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1694,13 +1928,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 987,
                               "end": 998,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 987,
                                 "end": 998,
-                                "value": "list.yesno"
+                                "name": "list.yesno"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1712,13 +1950,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 999,
                               "end": 1010,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 999,
                                 "end": 1010,
-                                "value": "view.yesno"
+                                "name": "view.yesno"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1736,6 +1978,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 1013,
                   "end": 1117,
                   "method": false,
@@ -1795,13 +2038,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1035,
                               "end": 1052,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1035,
                                 "end": 1041,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1820,13 +2067,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1056,
                               "end": 1073,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1056,
                                 "end": 1064,
-                                "value": "default"
+                                "name": "default"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1845,13 +2096,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1074,
                               "end": 1085,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1074,
                                 "end": 1085,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1863,13 +2118,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1086,
                               "end": 1095,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1086,
                                 "end": 1095,
-                                "value": "sortable"
+                                "name": "sortable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -1881,20 +2140,30 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1096,
                               "end": 1114,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1096,
                                 "end": 1106,
-                                "value": "list.date"
+                                "name": "list.date"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 1096,
                                 "end": 1114,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 1107,
+                                    "end": 1113,
+                                    "name": "Pretty"
+                                  }
+                                ]
                               }
                             }
                           ]
@@ -1905,6 +2174,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 1117,
                   "end": 1225,
                   "method": false,
@@ -1964,13 +2234,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1139,
                               "end": 1156,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1139,
                                 "end": 1145,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -1989,13 +2263,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1160,
                               "end": 1181,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1160,
                                 "end": 1168,
-                                "value": "default"
+                                "name": "default"
                               },
                               "value": {
                                 "type": "ArrayExpression",
@@ -2014,13 +2292,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1182,
                               "end": 1193,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1182,
                                 "end": 1193,
-                                "value": "filterable"
+                                "name": "filterable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -2032,13 +2314,17 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1194,
                               "end": 1203,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1194,
                                 "end": 1203,
-                                "value": "sortable"
+                                "name": "sortable"
                               },
                               "value": {
                                 "type": "Literal",
@@ -2050,20 +2336,30 @@
                             },
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1204,
                               "end": 1222,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1204,
                                 "end": 1214,
-                                "value": "list.date"
+                                "name": "list.date"
                               },
                               "value": {
-                                "type": "Literal",
+                                "type": "ArrayExpression",
                                 "start": 1204,
                                 "end": 1222,
-                                "value": true,
-                                "raw": "true"
+                                "elements": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 1215,
+                                    "end": 1221,
+                                    "name": "Pretty"
+                                  }
+                                ]
                               }
                             }
                           ]
@@ -2074,6 +2370,7 @@
                 },
                 {
                   "type": "Property",
+                  "kind": "init",
                   "start": 1225,
                   "end": 1269,
                   "method": false,
@@ -2133,13 +2430,17 @@
                           "properties": [
                             {
                               "type": "Property",
+                              "kind": "init",
                               "start": 1247,
                               "end": 1267,
+                              "method": false,
+                              "shorthand": false,
+                              "computed": false,
                               "key": {
                                 "type": "Identifier",
                                 "start": 1247,
                                 "end": 1253,
-                                "value": "label"
+                                "name": "label"
                               },
                               "value": {
                                 "type": "ArrayExpression",

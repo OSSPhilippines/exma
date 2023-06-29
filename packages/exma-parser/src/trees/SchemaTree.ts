@@ -1,23 +1,17 @@
 //types
-import type { Node } from '../types';
+import type { SchemaToken, DeclarationToken } from '../types';
 
 import Lexer from '../types/Lexer';
 
-import AbstractTree from './AbstractTree';
 import EnumTree from './EnumTree';
 import PropTree from './PropTree';
 import TypeTree from './TypeTree';
 import ModelTree from './ModelTree';
 
-import { args } from '../definitions';
-
-export default class SchemaTree extends AbstractTree {
-  static args = [ ...args, 'Reference' ];
+export default class SchemaTree {
 
   //the language used
   static definitions(lexer: Lexer) {
-    super.definitions(lexer);
-
     EnumTree.definitions(lexer);
     PropTree.definitions(lexer);
     TypeTree.definitions(lexer);
@@ -33,6 +27,9 @@ export default class SchemaTree extends AbstractTree {
     return new this().parse(code);
   }
 
+  //the parser
+  protected _lexer: Lexer;
+
   //placeholder for trees
   protected _enumTree: EnumTree;
   protected _propTree: PropTree;
@@ -43,7 +40,9 @@ export default class SchemaTree extends AbstractTree {
    * Creates a new parser 
    */
   constructor(lexer?: Lexer) {
-    super(lexer);
+    this._lexer = lexer || (
+      this.constructor as typeof SchemaTree
+    ).definitions(new Lexer());
     this._enumTree = new EnumTree(this._lexer);
     this._propTree = new PropTree(this._lexer);
     this._typeTree = new TypeTree(this._lexer);
@@ -53,11 +52,11 @@ export default class SchemaTree extends AbstractTree {
   /**
    * Builds the type syntax
    */
-  parse(code: string, start: number = 0) {
+  parse(code: string, start: number = 0): SchemaToken {
     this._lexer.load(code, start);
     const entries = [ 'EnumWord', 'PropWord', 'TypeWord', 'ModelWord' ];
     this._lexer.optional('whitespace');
-    const body: Node[] = [];
+    const body: DeclarationToken[] = [];
     while (this._lexer.next(entries)) {
       switch(true) {
         case this._lexer.next('EnumWord'):
@@ -78,7 +77,7 @@ export default class SchemaTree extends AbstractTree {
 
     return {
       type: 'Program',
-      value: 'schema',
+      kind: 'schema',
       start: 0,
       end: this._lexer.index,
       body

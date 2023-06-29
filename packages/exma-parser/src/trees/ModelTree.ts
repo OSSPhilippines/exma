@@ -1,15 +1,21 @@
 //models
-import { Node } from '../types';
+import { DeclarationToken, IdentifierToken, PropertyToken } from '../types';
 
 import Lexer from '../types/Lexer';
 import TypeTree from './TypeTree';
+
+import { reader } from '../definitions';
 
 export default class ModelTree extends TypeTree {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
-    lexer.define('ModelWord', /^model$/);
-    lexer.define('ModelIdentifier', /^[A-Z][a-zA-Z0-9_]*$/, 'Identifier');
+    lexer.define('ModelWord', (code, index) => reader(
+      '_ModelWord', 
+      /^model$/, 
+      code, 
+      index
+    ));
     return lexer;
   }
 
@@ -23,16 +29,16 @@ export default class ModelTree extends TypeTree {
   /**
    * Builds the model syntax
    */
-  model() {
+  model(): DeclarationToken {
     //model
     const type = this._lexer.expect('ModelWord');
     this._lexer.expect('whitespace');
     //model Foobar
-    const name = this._lexer.expect('ModelIdentifier');
+    const id = this._lexer.expect<IdentifierToken>('CapitalIdentifier');
     this._lexer.expect('whitespace');
-    const properties: Node[] = [];
+    const properties: PropertyToken[] = [];
     //model Foobar @id("foo" "bar")
-    while(this._lexer.next('Parameter')) {
+    while(this._lexer.next('AttributeIdentifier')) {
       properties.push(this.parameter());
       this.noncode();
     }
@@ -40,11 +46,11 @@ export default class ModelTree extends TypeTree {
     //model Foobar @id("foo" "bar") {
     this._lexer.expect('{');
     this.noncode();
-    const columns: Node[] = [];
+    const columns: PropertyToken[] = [];
     //model Foobar @id("foo" "bar") {
     //  foo String @id("foo" "bar")
     //  ...
-    while(this._lexer.next('TypePropertyIdentifier')) {
+    while(this._lexer.next('CamelIdentifier')) {
       columns.push(this.property());
     }
     //model Foobar @id("foo" "bar") {
@@ -62,12 +68,7 @@ export default class ModelTree extends TypeTree {
         type: 'VariableDeclarator',
         start: type.start,
         end: this._lexer.index,
-        id: {
-          type: 'Identifier',
-          start: name.start,
-          end: name.end,
-          name: name.value //Foobar
-        },
+        id,
         init: {
           type: 'ObjectExpression',
           start: type.start,
@@ -75,6 +76,7 @@ export default class ModelTree extends TypeTree {
           properties: [
             {
               type: 'Property',
+              kind: 'init',
               start: type.start,
               end: this._lexer.index,
               method: false,
@@ -95,6 +97,7 @@ export default class ModelTree extends TypeTree {
             },
             {
               type: 'Property',
+              kind: 'init',
               start: type.start, 
               end: this._lexer.index,
               method: false,

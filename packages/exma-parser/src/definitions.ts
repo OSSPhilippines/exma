@@ -1,55 +1,103 @@
-import type { Syntax, Node } from './types';
-const definitions: Record<string, RegExp|Syntax> = {
-  'line': /^[\n\r]+$/,
-  'space': /^[ ]+$/,
-  'whitespace': /^\s+$/,
-  '//': /^\/\*(?:(?!\*\/).)+\*\/$/s,
-  '/**/': /^\/\/[^\n\r]+[\n\r]*$/,
-  ')': /^\)$/,
-  '(': /^\($/,
-  '}': /^\}$/,
-  '{': /^\{$/,
-  ']': /^\]$/,
-  '[': /^\[$/,
+import type { 
+  Reader, 
+  DataToken, 
+  UnknownToken, 
+  IdentifierToken 
+} from './types';
+const definitions: Record<string, Reader> = {
+  'line': (code, index) => reader(
+    '_Line', 
+    /^[\n\r]+$/, 
+    code, 
+    index
+  ),
+  'space': (code, index) => reader(
+    '_Space', 
+    /^[ ]+$/, 
+    code, 
+    index
+  ),
+  'whitespace': (code, index) => reader(
+    '_Whitespace', 
+    /^\s+$/, 
+    code, 
+    index
+  ),
+  'note': (code, index) => reader(
+    '_Note', 
+    /^\/\*(?:(?!\*\/).)+\*\/$/s, 
+    code, 
+    index
+  ),
+  'comment': (code, index) => reader(
+    '_Comment', 
+    /^\/\/[^\n\r]+[\n\r]*$/, 
+    code, 
+    index
+  ),
+  ')': (code, index) => reader(
+    '_ParenClose', 
+    /^\)$/, 
+    code, 
+    index
+  ),
+  '(': (code, index) => reader(
+    '_ParenOpen', 
+    /^\($/, 
+    code, 
+    index
+  ),
+  '}': (code, index) => reader(
+    '_BraceClose', 
+    /^\}$/, 
+    code, 
+    index
+  ),
+  '{': (code, index) => reader(
+    '_BraceOpen', 
+    /^\{$/, 
+    code, 
+    index
+  ),
+  ']': (code, index) => reader(
+    '_SquareClose', 
+    /^\]$/, 
+    code, 
+    index
+  ),
+  '[': (code, index) => reader(
+    '_SquareOpen', 
+    /^\[$/, 
+    code, 
+    index
+  ),
   'Null': (code: string, index: number) => {
     return code.substring(index, index + 4) === 'null' 
       ? { 
-        end: index + 4, 
-        value: null, 
-        node: { 
-          type: 'Literal', 
-          start: index,
-          end: index + 4,
-          value: null,
-          raw: 'null'
-        } 
+        type: 'Literal', 
+        start: index,
+        end: index + 4,
+        value: null,
+        raw: 'null'
       } : undefined; 
   },
   'Boolean': (code, index) => {
     if (code.substring(index, index + 4) === 'true') {
       return { 
-        end: index + 4, 
-        value: true, 
-        node: { 
-          type: 'Literal', 
-          start: index,
-          end: index + 4,
-          value: true,
-          raw: 'true'
-        } 
+        type: 'Literal', 
+        start: index,
+        end: index + 4,
+        value: true,
+        raw: 'true'
       };
     }
     if (code.substring(index, index + 5) === 'false') {
       return { 
-        end: index + 5, 
-        value: false, 
-        node: { 
-          type: 'Literal', 
-          start: index,
-          end: index + 5,
-          value: false,
-          raw: 'false'
-        } 
+        type: 'Literal', 
+        start: index,
+        end: index + 5,
+        value: false,
+        raw: 'false'
       };
     }
     return undefined;
@@ -67,15 +115,11 @@ const definitions: Record<string, RegExp|Syntax> = {
     const value = code.slice(index + 1, end - 1);
 
     return { 
-      end, 
+      type: 'Literal',
+      start: index,
+      end,
       value,
-      node: {
-        type: 'Literal',
-        start: index,
-        end,
-        value,
-        raw: `'${value}'`
-      }
+      raw: `'${value}'`
     };
   },
   'Float': (code, index) => {
@@ -99,15 +143,11 @@ const definitions: Record<string, RegExp|Syntax> = {
         }
         //return where we ended
         return { 
-          end: index - 1, 
+          type: 'Literal',
+          start,
+          end: index - 1,
           value: parseFloat(value),
-          node: {
-            type: 'Literal',
-            start,
-            end: index - 1,
-            value: parseFloat(value),
-            raw: `${value}`
-          }
+          raw: `${value}`
         };
       }
       //add character to value
@@ -119,15 +159,11 @@ const definitions: Record<string, RegExp|Syntax> = {
     //did it end with a match?
     return matched && value.length
       ? { 
-        end: index, 
-        value: parseFloat(value) ,
-        node: {
-          type: 'Literal',
-          start,
-          end: index,
-          value: parseFloat(value),
-          raw: `${value}`
-        }
+        type: 'Literal',
+        start,
+        end: index,
+        value: parseFloat(value),
+        raw: `${value}`
       } : undefined;
   },
   'Integer': (code, index) => {
@@ -140,15 +176,11 @@ const definitions: Record<string, RegExp|Syntax> = {
       const char = code.charAt(++index);
       if (!/^[0-9]+$/.test(value + char)) {
         return { 
-          end: index - 1, 
+          type: 'Literal',
+          start,
+          end: index - 1,
           value: parseInt(value),
-          node: {
-            type: 'Literal',
-            start,
-            end: index - 1,
-            value: parseInt(value),
-            raw: `${value}`
-          }
+          raw: `${value}`
         };
       }
       value += char;
@@ -156,33 +188,25 @@ const definitions: Record<string, RegExp|Syntax> = {
     
     if (/^[0-9]+$/.test(value)) {
       return { 
-        end: index, 
+        type: 'Literal',
+        start,
+        end: index,
         value: parseInt(value),
-        node: {
-          type: 'Literal',
-          start,
-          end: index,
-          value: parseInt(value),
-          raw: `${value}`
-        }
+        raw: `${value}`
       };
     }
     return undefined;
   },
   'Array': (code, index, lexer) => {
-    const elements: Node[] = [];
-    const array: any[] = [];
+    const elements: DataToken[] = [];
     const subparser = lexer.clone().load(code, index);
     try {
       subparser.expect('[');
       subparser.optional('whitespace');
-      while (subparser.next(args)) {
-        const value = subparser.expect(args);
+      while (subparser.next(data)) {
+        const value = subparser.expect(data) as DataToken;
         subparser.optional('whitespace');
-        array.push(value.value);
-        if (typeof value.node !== 'undefined') {
-          elements.push(value.node);
-        }
+        elements.push(value);
       }
       subparser.expect(']');
     } catch(e) {
@@ -190,66 +214,180 @@ const definitions: Record<string, RegExp|Syntax> = {
     }
     
     return { 
-      end: subparser.index, 
-      value: array,
-      node: {
-        type: 'ArrayExpression',
-        start: index,
-        end: subparser.index,
-        elements
-      }
+      type: 'ArrayExpression',
+      start: index,
+      end: subparser.index,
+      elements
     };
   },
-  'ObjectKey': /^[a-z0-9_]+$/i,
   'Object': (code, index, lexer) => {
     const properties: any[] = [];
-    const object: Record<string, any> = {};
     const subparser = lexer.clone().load(code, index);
     try {
       subparser.expect('{');
       subparser.optional('whitespace');
-      while (subparser.next('ObjectKey')) {
-        const key = subparser.expect('ObjectKey');
+      while (subparser.next('AnyIdentifier')) {
+        const key = subparser.expect<IdentifierToken>('AnyIdentifier');
         subparser.expect('whitespace');
-        const value = subparser.expect(args);
+        const value = subparser.expect<DataToken>(data);
         subparser.optional('whitespace');
-        object[key.value] = value.value;
-        if (typeof value.node !== 'undefined') {
-          properties.push({
-            type: 'Property',
+        properties.push({
+          type: 'Property',
+          start: key.start,
+          end: value.end,
+          key: {
+            type: 'Identifier',
             start: key.start,
-            end: value.node.end,
-            key: {
-              type: 'Identifier',
-              start: key.start,
-              end: key.end,
-              name: key.value
-            },
-            value: value.node
-          });
-        }
+            end: key.end,
+            name: key.name
+          },
+          value: value
+        });
       }
       subparser.expect('}');
     } catch(e) {
       return undefined;
     }
     return { 
-      end: subparser.index, 
-      value: object,
-      node: {
-        type: 'ObjectExpression',
-        start: index,
-        end: subparser.index,
-        properties
-      }
+      type: 'ObjectExpression',
+      start: index,
+      end: subparser.index,
+      properties
     };
+  },
+  'AnyIdentifier': (code, index) => identifier(
+    /^[a-z_][a-z0-9_]*$/, 
+    code, 
+    index
+  ),
+  'UpperIdentifier': (code, index) => identifier(
+    /^[A-Z_][A-Z0-9_]*$/i, 
+    code, 
+    index
+  ),
+  'CapitalIdentifier': (code, index) => identifier(
+    /^[A-Z_][a-zA-Z0-9_]*$/i, 
+    code, 
+    index
+  ),
+  'CamelIdentifier': (code, index) => identifier(
+    /^[a-z_][a-zA-Z0-9_]*$/i, 
+    code, 
+    index
+  ),
+  'LowerIdentifier': (code, index) => identifier(
+    /^[a-z_][a-z0-9_]*$/i, 
+    code, 
+    index
+  ),
+  'AttributeIdentifier': (code, index) => {
+    let name = '';
+    let matched = false;
+    const start = index;
+    const regexp = /^@[a-z](\.?[a-z0-9_]+)*$/;
+    while (index < code.length) {
+      //get the character (and increment index afterwards)
+      const char = code.charAt(index++);
+      if (!regexp.test(name + char)) {
+        //if attr then dot (optional)
+        if (/^@$/.test(name + char) 
+          || /^@[a-z][a-z0-9_\.]*\.$/.test(name + char)
+        ) {
+          //add character to value anyways
+          name += char;
+          //let it keep parsing
+          continue;
+        }
+        //if we do not have a value
+        if (name.length === 0 || !regexp.test(name)) {
+          return undefined;
+        }
+        //return where we ended
+        return { 
+          type: 'Identifier',
+          start,
+          end: index - 1,
+          name
+        };
+      }
+      //add character to value
+      name += char;
+      //remember last match
+      matched = true;
+    }
+    //no more code...
+    //did it end with a match?
+    return regexp.test(name) ? { 
+      type: 'Identifier',
+      start,
+      end: index,
+      name
+    } : undefined;
   }
 };
 
-export const args = [
+export const scalar = [
   'Null',  'Boolean', 'String',
-  'Float', 'Integer', 'Object',
-  'Array'
+  'Float', 'Integer'
 ];
+
+export const data = [ ...scalar, 'Object', 'Array' ];
+
+export function reader(
+  type: string, 
+  regexp: RegExp, 
+  code: string, 
+  index: number
+): UnknownToken | undefined {
+  let value = '';
+  let matched = false;
+  const start = index;
+  while (index < code.length) {
+    //get the character (and increment index afterwards)
+    const char = code.charAt(index++);
+    if (!regexp.test(value + char)) {
+      //if we never had a match
+      if (!matched) {
+        //add character to value anyways
+        value += char;
+        //let it keep parsing
+        continue;
+      }
+      //if we do not have a value
+      if (value.length === 0) {
+        return undefined;
+      }
+      //return where we ended
+      return { type, start, end: index - 1, value, raw: value };
+    }
+    //add character to value
+    value += char;
+    //remember last match
+    matched = true;
+  }
+  //no more code...
+  //did it end with a match?
+  return matched && value.length
+    ? { type, start, end: index, value, raw: value }
+    : undefined;
+};
+
+export function identifier(
+  regexp: RegExp, 
+  code: string, 
+  index: number
+): IdentifierToken | undefined {
+  const results = reader('Identifier', regexp, code, index);
+  if (results) {
+    return {
+      type: 'Identifier',
+      start: results.start,
+      end: results.end,
+      name: results.value
+    };
+  }
+
+  return undefined;
+}
 
 export default definitions;

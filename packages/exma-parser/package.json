@@ -15,9 +15,7 @@
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/",
     "test": "ts-mocha tests/*.test.ts"
   },
-  "dependencies": {
-    "chevrotain": "10.5.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@jest/globals": "29.5.0",
     "@types/chai": "4.3.5",
