@@ -33,7 +33,7 @@ $ npx exma -i ./schema.exma -o ./output
 You can also create a config file like the following
 
 ```js
-// ./chisma.config.js
+// ./exma.config.js
 module.exports = {
   input: './schema.exma',
   output: './output'
