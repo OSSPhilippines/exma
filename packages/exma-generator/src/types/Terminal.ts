@@ -1,6 +1,6 @@
 export default class Terminal {
   // brand to prefix in all logs
-  public static brand: string = '[INCEPT]';
+  public static brand: string = '[EXMA]';
 
   /**
    * Outputs an error log 
