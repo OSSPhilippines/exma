@@ -271,7 +271,7 @@ const definitions: Record<string, Reader> = {
     index
   ),
   'CamelIdentifier': (code, index) => identifier(
-    /^[a-z_][a-zA-Z0-9_]*$/i, 
+    /^[a-z_][a-zA-Z0-9_]*$/, 
     code, 
     index
   ),
