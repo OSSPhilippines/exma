@@ -3,13 +3,15 @@ import type {
   Data,
   Scalar,
   DataToken,
-  ArrayToken, 
+  ArrayToken,
+  TypeConfig,
+  ModelConfig, 
   ObjectToken,
   SchemaToken,
   LiteralToken, 
   UseReferences,
   IdentifierToken, 
-  DeclarationToken 
+  DeclarationToken
 } from '../types';
 
 import Exception from './Exception';
@@ -48,11 +50,11 @@ export default class Compiler {
     }
     //ex. Roles
     const name = token.declarations?.[0].id?.name as string;
-    const value: Record<string, T> = {};
+    const options: Record<string, T> = {};
     token.declarations[0].init.properties.forEach(property => {
-      value[property.key.name] = (property.value as LiteralToken).value;
+      options[property.key.name] = (property.value as LiteralToken).value;
     });
-    return [ name, value ] as [ string, Record<string, T> ];
+    return [ name, options ] as [ string, Record<string, T> ];
   }
 
   /**
@@ -115,7 +117,7 @@ export default class Compiler {
       }
     }
 
-    return [ name, value ] as [ string, Record<string, any> ];
+    return [ name, { name, ...value } ] as [ string, ModelConfig ];
   }
 
   /**
@@ -237,6 +239,6 @@ export default class Compiler {
       }
     }
 
-    return [ name, value ] as [ string, Record<string, any> ];
+    return [ name, { name, ...value } ] as [ string, TypeConfig ];
   }
 };

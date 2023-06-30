@@ -99,3 +99,16 @@ export interface Parser {
   optional<T = Token>(keys: string | string[]): T | undefined;
   read(): Token | undefined
 };
+
+export type TypeConfig = {
+  name: string,
+  attributes: Record<string, Data>,
+  columns: Record<string, {
+    type: string,
+    attributes: Record<string, Data>,
+    required: boolean,
+    multiple: boolean
+  }>
+};
+
+export type ModelConfig = TypeConfig;

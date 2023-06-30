@@ -1,6 +1,6 @@
 {
   "name": "@exma/language",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "A language server used by vscode/vim to read from exma files and check for syntax errors and to enable intellisense for the file type.",
   "author": "Chris <chris@incept.asia>",

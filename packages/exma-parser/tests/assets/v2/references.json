@@ -49,6 +49,7 @@
   },
   "type": {
     "Address": {
+      "name": "Address",
       "attributes": {
         "label": [
           "Address",
@@ -122,6 +123,7 @@
   },
   "model": {
     "User": {
+      "name": "User",
       "attributes": {
         "label": [
           "User",
