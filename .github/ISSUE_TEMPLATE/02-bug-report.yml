@@ -7,14 +7,14 @@ body:
       value: Thanks for taking the time to file a bug report! Please fill out this form as completely as possible.
   - type: input
     attributes:
-      label: What version of Cockpit Gaming are you using?
-      description: 'For example: 2'
+      label: What version of Exma are you using?
+      description: 'For example: 0.0.2'
     validations:
       required: true
   - type: input
     attributes:
-      label: What browser/device are you experiencing this issue?
-      description: 'For example: Chrome, Safari, Android'
+      label: What device are you experiencing this issue?
+      description: 'For example: Macbook Pro 2019 Mojave'
     validations:
       required: true
   - type: textarea
