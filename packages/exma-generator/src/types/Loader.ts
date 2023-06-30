@@ -12,7 +12,7 @@ export default class Loader {
    */
   static absolute(pathname: string, cwd?: string) {
     cwd = cwd || this.cwd();
-    if (pathname.startsWith('.')) {
+    if (/^\.{1,2}\//.test(pathname)) {
       pathname = path.resolve(cwd, pathname);
     }
     //if the pathname does not start with /, 
@@ -55,19 +55,6 @@ export default class Loader {
   static cwd() {
     return process.cwd();
   }
-  
-  /**
-   * Returns the fieldset folder
-   */
-  static fieldsets(cwd?: string) {
-    cwd = cwd || this.cwd();
-    const config = this.config(cwd);
-    let schemas = config.fieldset.build || './fieldsets';
-    if (schemas.startsWith('.')) {
-      schemas = path.resolve(cwd, schemas);
-    }
-    return schemas;
-  }
 
   /**
    * Should locate the node_modules directory 
@@ -82,45 +69,6 @@ export default class Loader {
       return path.resolve(cwd, 'node_modules');
     }
     return this.modules(path.dirname(cwd));
-  }
-
-  /**
-   * Returns a list of plugins to load
-   */
-  static plugins(cwd?: string, plugins: string[] = []) {
-    cwd = cwd || this.cwd();
-    //config should be a list of files
-    for (let pathname of plugins) {
-      pathname = this.resolve(pathname, cwd);
-      //require the plugin
-      let plugin;
-      try {
-        plugin = this.require(pathname);
-      } catch(e) {
-        //it could be a bootstrap file vs a plugin config
-        continue;
-      }
-      //if using import
-      if (plugin.default) {
-        plugin = plugin.default;
-      }
-      //if package.json, look for the `exma` key
-      if (plugin.exma) {
-        plugin = plugin.exma;
-      } 
-      //if there is a plugins key, use that
-      if (plugin.plugins) {
-        plugin = plugin.plugins;
-      } 
-      //plugins is an array of strings
-      if(Array.isArray(plugin)) {
-        this.plugins(path.dirname(pathname), plugin);
-      } else if (typeof plugin === 'string') {
-        plugins.push(plugin);
-      }
-    }
-
-    return plugins;
   }
 
   /**
@@ -199,18 +147,5 @@ export default class Loader {
     }
 
     return file;
-  }
-  
-  /**
-   * Returns the schema folder
-   */
-  static schemas(cwd?: string) {
-    cwd = cwd || this.cwd();
-    const config = this.config(cwd);
-    let schemas = config.schema.build || './schemas';
-    if (schemas.startsWith('.')) {
-      schemas = path.resolve(cwd, schemas);
-    }
-    return schemas;
   }
 }

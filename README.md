@@ -30,24 +30,77 @@ $ npm i -D exma
 $ npx exma -i ./schema.exma -o ./output
 ```
 
-You can also create a config file like the following
+## 1. Usage
+
+In your root project, craete a file called `schema.exma` and paste the 
+following.
 
 ```js
-// ./exma.config.js
-module.exports = {
-  input: './schema.exma',
-  output: './output'
+generator "./make-sql" {
+  engine "mysql"
+}
+
+prop Text { type "text" }
+prop Uppercase { format "uppercase" }
+prop Pretty { format "pretty" }
+prop Age { min 0 max 110 }
+prop Price { min 0 }
+
+enum Roles {
+  ADMIN "Admin"
+  MANAGER "Manager"
+  USER "User"
+}
+
+type Address @label("Address" "Addresses") {
+  street  String    @field.input(Text) @is.required @list.hide
+  city    String?   @field.input(Text) @is.required
+  country String    @field.select(Countries) @list.text(Uppercase) @view.text(Uppercase)
+  postal  String    @field.input(Text) @is.required
+}
+
+model User @label("User" "Users") {
+  id       String       @label("ID")         @id @default("nanoid(20)")
+  username String       @label("Username")   @searchable @field.input(Text) @is.required
+  password String       @label("Password")   @field.password @is.clt(80) @is.cgt(8) @is.required @list.hide @view.hide
+  role     Roles        @label("Role")       @filterable @field.select @list.text(Uppercase) @view.text(Uppercase)
+  address  Address?     @label("Address")    @list.hide
+  age      Number       @label("Age")        @unsigned @filterable @sortable @field.number(Age) @is.gt(0) @is.lt(150)
+  salary   Number       @label("Salary")     @insigned @filterable @sortable @field.number(Price) @list.number @view.number
+  balance  Number[]     @label("Balance")    @filterable @sortable @field.number() @list.number() @view.number
+  bio      Text         @label("Bio")        @field.markdown
+  active   Boolean      @label("Active")     @default(true) @filterable @field.switch @list.yesno @view.yesno
+  created  Date         @label("Created")    @default("now()") @filterable @sortable @list.date(Pretty)
+  updated  Date         @label("Updated")    @default("updated()") @filterable @sortable @list.date(Pretty)
+  company  Company?     @label("My Company") 
+}
+```
+
+Create a file called `make-sql.js` and paste the following.
+
+```js
+module.exports = ({ config, schema, output, cli }) => {
+  cli.terminal.warning('TODO make SQL');
 };
 ```
 
-After saving this to your project folder you can call the following in 
-terminal.
+For Typescript you can do the following
+
+```ts
+import type { GeneratorProps } from 'exma';
+
+export default function makeSql({ config, schema, output, cli }: GeneratorProps) {
+  cli.terminal.warning('TODO make SQL');
+};
+```
+
+Next run the following in your project root and wait for the output.
 
 ```bash
 $ npx exma
 ```
 
-## 1. Specifications
+## 2. Specifications
 
 The primary purpose of this specifications is to provide a simple and 
 flexible syntax that any generator can use as a basis to render code. 
@@ -103,7 +156,7 @@ using only curly braces (`{}`).
 
 With the specifications above the following examples are valid syntax.
 
-### 1.1. Prop
+### 2.1. Prop
 
 A prop is a variable that can be defined and referenced in other props 
 and attributes. The following are valid prop definitions.
@@ -133,7 +186,7 @@ model User {
 
 > In Exma we removed the need to add colons and commas.
 
-### 1.2. Enum
+### 2.2. Enum
 
 Unlike a prop, an enum can be used as a property type.
 
@@ -149,7 +202,7 @@ model User {
 }
 ```
 
-### 1.3. Type
+### 2.3. Type
 
 A composite type is used to define specifics of a JSON column in a model.
 
@@ -166,7 +219,7 @@ type Address @label("Address", "Addresses") {
 arbitrarily make up attributes. Each generator should provide which 
 attributes it uses however.
 
-### 1.4. Model
+### 2.4. Model
 
 A model is a representation of a database table or collection. 
 It uses props and types.

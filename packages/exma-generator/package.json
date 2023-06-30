@@ -14,7 +14,9 @@
     "build:tsc": "tsc",
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@exma/parser": "0.0.2"
+  },
   "devDependencies": {
     "@types/node": "20.2.5",
     "ts-node": "10.9.1",

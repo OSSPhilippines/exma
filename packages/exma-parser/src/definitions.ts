@@ -315,6 +315,10 @@ const definitions: Record<string, Reader> = {
       //remember last match
       matched = true;
     }
+
+    if (!matched) {
+      return undefined;
+    }
     //no more code...
     //did it end with a match?
     return regexp.test(name) ? { 

@@ -1,24 +1,28 @@
 import Exception from './types/Exception';
 import Lexer from './types/Lexer';
+import Compiler from './types/Compiler';
 import AbstractTree from './trees/AbstractTree';
 import EnumTree from './trees/EnumTree';
-import ModelTree from './trees/ModelTree';
 import PropTree from './trees/PropTree';
-import SchemaTree from './trees/SchemaTree';
 import TypeTree from './trees/TypeTree';
+import ModelTree from './trees/ModelTree';
+import SchemaTree from './trees/SchemaTree';
+import GeneratorTree from './trees/GeneratorTree';
 
 export type * from './types';
 export { 
   Exception, 
   Lexer, 
+  Compiler,
   AbstractTree, 
   EnumTree,
-  ModelTree,
   PropTree,
+  TypeTree,
+  ModelTree,
   SchemaTree,
-  TypeTree
+  GeneratorTree
 };
 
-export default function parse(code: string) {
-  return SchemaTree.parse(code);
+export function parse(code: string) {
+  return Compiler.schema(SchemaTree.parse(code));
 };

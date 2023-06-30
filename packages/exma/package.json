@@ -7,14 +7,18 @@
   "homepage": "https://github.com/OSSPhilippines/exma",
   "bugs": "https://github.com/OSSPhilippines/exma/issues",
   "repository": "OSSPhilippines/exma",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "bin": {
+    "exma": "./bin.js"
+  },
   "scripts": {
     "build": "npm run build:tsc && npm run build:files",
     "build:tsc": "tsc",
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@exma/generator": "0.0.2",
+    "@exma/parser": "0.0.2"
+  },
   "devDependencies": {
     "@types/node": "20.2.5",
     "ts-node": "10.9.1",

@@ -1,0 +1,17 @@
+{
+  "name": "with-vanilla",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "generate": "exma",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "exma": "0.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "20.2.5",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.4"
+  }
+}
