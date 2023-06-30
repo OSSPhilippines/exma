@@ -14,10 +14,10 @@ describe('Schema Tree', () => {
     //console.log(JSON.stringify(actual, null, 2));
     expect(actual).to.deep.equalInAnyOrder(schema);
 
+    //console.log(JSON.stringify(Compiler.schema(actual, true), null, 2));
     const references = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/references.json`, 'utf8'));
     expect(Compiler.schema(actual)).to.deep.equalInAnyOrder(references);
     const final = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/final.json`, 'utf8'));
     expect(Compiler.schema(actual, true)).to.deep.equalInAnyOrder(final);
-    //console.log(JSON.stringify(Compiler.schema(actual), null, 2));
   });
 });

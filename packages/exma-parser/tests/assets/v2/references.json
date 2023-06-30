@@ -1,4 +1,12 @@
 {
+  "generator": {
+    "./custom-generator": {
+      "provider": "custom-client-js",
+      "previewFeatures": [
+        "fullTextSearch"
+      ]
+    }
+  },
   "prop": {
     "Text": {
       "type": "text"
@@ -56,32 +64,37 @@
           "Addresses"
         ]
       },
-      "columns": {
-        "street": {
+      "columns": [
+        {
           "type": "String",
+          "name": "street",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "field.input": [
               "${Text}"
             ],
             "is.required": true,
             "list.hide": true
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "city": {
+        {
           "type": "String",
+          "name": "city",
+          "required": false,
+          "multiple": false,
           "attributes": {
             "field.input": [
               "${Text}"
             ],
             "is.required": true
-          },
-          "required": false,
-          "multiple": false
+          }
         },
-        "country": {
+        {
           "type": "String",
+          "name": "country",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "field.select": [
               "${Countries}"
@@ -95,30 +108,21 @@
             "view.text": [
               "${Uppercase}"
             ]
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "postal": {
+        {
           "type": "String",
+          "name": "postal",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "field.input": [
               "${Text}"
             ],
             "is.required": true
-          },
-          "required": true,
-          "multiple": false
+          }
         }
-      }
-    }
-  },
-  "generator": {
-    "./custom-generator": {
-      "previewFeatures": [
-        "fullTextSearch"
-      ],
-      "provider": "custom-client-js"
+      ]
     }
   },
   "model": {
@@ -130,9 +134,12 @@
           "Users"
         ]
       },
-      "columns": {
-        "id": {
+      "columns": [
+        {
           "type": "String",
+          "name": "id",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "ID"
@@ -141,12 +148,13 @@
             "default": [
               "nanoid(20)"
             ]
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "username": {
+        {
           "type": "String",
+          "name": "username",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Username"
@@ -156,12 +164,13 @@
               "${Text}"
             ],
             "is.required": true
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "password": {
+        {
           "type": "String",
+          "name": "password",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Password"
@@ -176,12 +185,13 @@
             "is.required": true,
             "list.hide": true,
             "view.hide": true
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "role": {
+        {
           "type": "Roles",
+          "name": "role",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Role"
@@ -194,23 +204,25 @@
             "view.text": [
               "${Uppercase}"
             ]
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "address": {
+        {
           "type": "Address",
+          "name": "address",
+          "required": false,
+          "multiple": false,
           "attributes": {
             "label": [
               "Address"
             ],
             "list.hide": true
-          },
-          "required": false,
-          "multiple": false
+          }
         },
-        "age": {
+        {
           "type": "Number",
+          "name": "age",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Age"
@@ -227,12 +239,13 @@
             "is.lt": [
               150
             ]
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "salary": {
+        {
           "type": "Number",
+          "name": "salary",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Salary"
@@ -245,12 +258,13 @@
             ],
             "list.number": true,
             "view.number": true
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "balance": {
+        {
           "type": "Number",
+          "name": "balance",
+          "required": true,
+          "multiple": true,
           "attributes": {
             "label": [
               "Balance"
@@ -260,23 +274,25 @@
             "field.number": true,
             "list.number": true,
             "view.number": true
-          },
-          "required": true,
-          "multiple": true
+          }
         },
-        "bio": {
+        {
           "type": "Text",
+          "name": "bio",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Bio"
             ],
             "field.markdown": true
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "active": {
+        {
           "type": "Boolean",
+          "name": "active",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Active"
@@ -288,12 +304,13 @@
             "field.switch": true,
             "list.yesno": true,
             "view.yesno": true
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "created": {
+        {
           "type": "Date",
+          "name": "created",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Created"
@@ -306,12 +323,13 @@
             "list.date": [
               "${Pretty}"
             ]
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "updated": {
+        {
           "type": "Date",
+          "name": "updated",
+          "required": true,
+          "multiple": false,
           "attributes": {
             "label": [
               "Updated"
@@ -324,21 +342,20 @@
             "list.date": [
               "${Pretty}"
             ]
-          },
-          "required": true,
-          "multiple": false
+          }
         },
-        "company": {
+        {
           "type": "Company",
+          "name": "company",
+          "required": false,
+          "multiple": false,
           "attributes": {
             "label": [
               "My Company"
             ]
-          },
-          "required": false,
-          "multiple": false
+          }
         }
-      }
+      ]
     }
   }
 }

@@ -8,6 +8,7 @@ import type {
   ModelConfig, 
   ObjectToken,
   SchemaToken,
+  ColumnConfig,
   LiteralToken, 
   UseReferences,
   IdentifierToken, 
@@ -108,14 +109,27 @@ export default class Compiler {
       throw Exception.for('Expecting a columns property');
     }
 
-    for (const column in value.columns) {
-      if (typeof value.columns[column].type === 'string') {
-        value.columns[column].required = !value.columns[column].type.endsWith('?');
-        value.columns[column].type = value.columns[column].type.replace(/\?$/, '');
-        value.columns[column].multiple = value.columns[column].type.endsWith('[]');
-        value.columns[column].type = value.columns[column].type.replace(/\[\]$/, '');
+    //change from key/value to array to preserve the order
+    const columns: ColumnConfig[] = [];
+    for (const name in value.columns) {
+      const column = value.columns[name];
+      column.name = name;
+      if (typeof column.type === 'string') {
+        column.required = !column.type.endsWith('?');
+        column.type = column.type.replace(/\?$/, '');
+        column.multiple = column.type.endsWith('[]');
+        column.type = column.type.replace(/\[\]$/, '');
       }
+      columns.push({
+        type: column.type,
+        name: column.name,
+        required: column.required,
+        multiple: column.multiple,
+        attributes: column.attributes,
+        ...column
+      });
     }
+    value.columns = columns;
 
     return [ name, { name, ...value } ] as [ string, ModelConfig ];
   }
@@ -230,14 +244,27 @@ export default class Compiler {
       throw Exception.for('Expecting a columns property');
     }
 
-    for (const column in value.columns) {
-      if (typeof value.columns[column].type === 'string') {
-        value.columns[column].required = !value.columns[column].type.endsWith('?');
-        value.columns[column].type = value.columns[column].type.replace(/\?$/, '');
-        value.columns[column].multiple = value.columns[column].type.endsWith('[]');
-        value.columns[column].type = value.columns[column].type.replace(/\[\]$/, '');
+    //change from key/value to array to preserve the order
+    const columns: ColumnConfig[] = [];
+    for (const name in value.columns) {
+      const column = value.columns[name];
+      column.name = name;
+      if (typeof column.type === 'string') {
+        column.required = !column.type.endsWith('?');
+        column.type = column.type.replace(/\?$/, '');
+        column.multiple = column.type.endsWith('[]');
+        column.type = column.type.replace(/\[\]$/, '');
       }
+      columns.push({
+        type: column.type,
+        name: column.name,
+        required: column.required,
+        multiple: column.multiple,
+        attributes: column.attributes,
+        ...column
+      });
     }
+    value.columns = columns;
 
     return [ name, { name, ...value } ] as [ string, TypeConfig ];
   }

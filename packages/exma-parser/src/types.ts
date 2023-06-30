@@ -100,15 +100,18 @@ export interface Parser {
   read(): Token | undefined
 };
 
+export type ColumnConfig = {
+  name: string,
+  type: string,
+  attributes: Record<string, Data>,
+  required: boolean,
+  multiple: boolean
+};
+
 export type TypeConfig = {
   name: string,
   attributes: Record<string, Data>,
-  columns: Record<string, {
-    type: string,
-    attributes: Record<string, Data>,
-    required: boolean,
-    multiple: boolean
-  }>
+  columns: ColumnConfig[]
 };
 
 export type ModelConfig = TypeConfig;
