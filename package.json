@@ -9,7 +9,8 @@
     "build:parser": "cd packages/exma-parser && npm run build",
     "build:language": "cd packages/exma-language && npm run build",
     "build:generator": "cd packages/exma-generator && npm run build",
-    "build:exma": "cd packages/exma && npm run build"
+    "build:exma": "cd packages/exma && npm run build",
+    "test": "cd packages/exma-parser && npm run test"
   },
   "devDependencies": {
     "concurrently": "7.6.0"

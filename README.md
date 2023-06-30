@@ -4,33 +4,21 @@ A schema file formatting standard used to define properties of data
 collections. Originally, schema files are currently used to define 
 database structures. This file format builds on top of that adding 
 arbitrary attributes for fields, validation, formats etc. so generators
-are more informed to produce more accurate and relevant code. The 
-projects in this monorepo are the following.
+are more informed to produce more accurate and relevant code. 
 
-1. `@exma/parser` - Parses a schema file to AST
-2. `@exma/language` - A language server used by vscode/vim to read 
-   from `.exma` files and check for syntax errors and to enable 
-   intellisense for the file type.
-3. `@exma/generator` - A programmatical command line interface used 
-   by projects and that calls on external generators to make relevant 
-   code (like SQL schema, GraphQL, react components, etc.)
-4. `exma` - A stand alone command line tool used that calls on 
-   external generators to make relevant code (like SQL schema, GraphQL, 
-   react components, etc.) 
 
-## Standalone Install
+
+## Install
 
 ```bash
 $ npm i -D exma
 ```
 
-## Standalone Usage
+## 1. Usage
 
 ```bash
-$ npx exma -i ./schema.exma -o ./output
+$ npx exma -i ./schema.exma
 ```
-
-## 1. Usage
 
 In your root project, craete a file called `schema.exma` and paste the 
 following.
@@ -79,7 +67,7 @@ model User @label("User" "Users") {
 Create a file called `make-sql.js` and paste the following.
 
 ```js
-module.exports = ({ config, schema, output, cli }) => {
+module.exports = ({ config, schema, cli }) => {
   cli.terminal.warning('TODO make SQL');
 };
 ```
@@ -89,7 +77,7 @@ For Typescript you can do the following
 ```ts
 import type { GeneratorProps } from 'exma';
 
-export default function makeSql({ config, schema, output, cli }: GeneratorProps) {
+export default function makeSql({ config, schema, cli }: GeneratorProps) {
   cli.terminal.warning('TODO make SQL');
 };
 ```
@@ -241,3 +229,48 @@ model User @label("User" "Users") {
   company  Company?     @label("My Company") 
 }
 ```
+
+## 3. Contributing
+
+Thanks for being an awesome developer! We are always looking for 
+contributors and sponsors. If your interested, 
+[contact us](https://github.com/OSSPhilippines) so we can discuss. 
+Clone this repo and run the following commands in the project folder.
+
+```js
+$ yarn
+$ yarn build
+$ yarn test
+```
+
+The projects in this monorepo are the following.
+
+1. `@exma/parser` - Parses a schema file to AST
+2. `@exma/language` - A language server used by vscode/vim to read 
+   from `.exma` files and check for syntax errors and to enable 
+   intellisense for the file type.
+3. `@exma/generator` - A programmatical command line interface used 
+   by projects and that calls on external generators to make relevant 
+   code (like SQL schema, GraphQL, react components, etc.)
+4. `exma` - A stand alone command line tool used that calls on 
+   external generators to make relevant code (like SQL schema, GraphQL, 
+   react components, etc.) 
+
+Please follow the steps below to properly contribute to this repository.
+
+> Do not commit code that is not related to a GitHub issue!
+
+> Please tag all your commits with `[type]/[issue#]`.
+
+> Please include the time it took per commit. ie. `1s` or `1h`.
+
+ 1. Per issue on Github, you should create a branch. example: `[type]/[issue#]`
+    - Per feature you should create a feature branch. ie. `feature/1001`.
+    - Per bug you should create a fix branch. ie. `fix/1002`.
+    - Per task you should create a task branch. ie. `task/1003`
+ 2. Commits need to reference the issue that is being worked on. example: `updated copy #1004` or `fixes #1005`
+    - It's also good to to add the amount of time to your commit message. example: `fixed button #1006 30m` or `built awsome feature #1007 16h`
+ 3. When you are finished with your branch, you should create a pull request back to the `main` branch.
+    - Assign another developer to review your code. 
+    - All contributors are expected to both write and review code. 
+    - Ask [Dev lead](https://github.com/cblanquera) for assignments.

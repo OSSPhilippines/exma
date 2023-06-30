@@ -1,0 +1,13 @@
+name: Questions and Suggestions
+description: Ask a question or make a suggestion
+labels: ['qna']
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to ask or suggest! Please fill out this form as completely as possible.
+  - type: textarea
+    attributes:
+      label: Go ahead and ask or suggest!
+      description: A clear and concise question/description of what you want and what your use case is.
+    validations:
+      required: true
