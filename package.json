@@ -5,11 +5,12 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "npm run build:parser && npm run build:generator && npm run build:exma",
+    "build": "npm run build:parser && npm run build:generator && npm run build:exma && npm run build:typescript",
     "build:parser": "cd packages/exma-parser && npm run build",
     "build:language": "cd packages/exma-language && npm run build",
     "build:generator": "cd packages/exma-generator && npm run build",
     "build:exma": "cd packages/exma && npm run build",
+    "build:typescript": "cd packages/exma-typescript && npm run build",
     "test": "cd packages/exma-parser && npm run test"
   },
   "devDependencies": {

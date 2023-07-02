@@ -141,3 +141,4 @@ cockroach-data
 
 #custom
 archives
+examples/with-node/src/types.ts
