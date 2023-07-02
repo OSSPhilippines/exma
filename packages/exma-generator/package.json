@@ -1,6 +1,6 @@
 {
   "name": "@exma/generator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "description": "A programmatical command line interface used by projects and that calls on external generators to make relevant code",
   "author": "Chris <chris@incept.asia>",
@@ -15,7 +15,7 @@
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/"
   },
   "dependencies": {
-    "@exma/parser": "0.0.6"
+    "@exma/parser": "0.0.7"
   },
   "devDependencies": {
     "@types/node": "20.2.5",
