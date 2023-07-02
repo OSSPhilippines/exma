@@ -17,7 +17,8 @@ describe('Schema Tree', () => {
     //console.log(JSON.stringify(Compiler.schema(actual, true), null, 2));
     const references = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/references.json`, 'utf8'));
     expect(Compiler.schema(actual)).to.deep.equalInAnyOrder(references);
+    //console.log(JSON.stringify(Compiler.final(actual), null, 2));
     const final = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/final.json`, 'utf8'));
-    expect(Compiler.schema(actual, true)).to.deep.equalInAnyOrder(final);
+    expect(Compiler.final(actual)).to.deep.equalInAnyOrder(final);
   });
 });

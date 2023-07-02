@@ -119,10 +119,13 @@ export type TypeConfig = {
 
 export type ModelConfig = TypeConfig;
 
-export type SchemaConfig = {
+export type FinalSchemaConfig = {
   enum?: Record<string, EnumConfig>,
-  prop?: Record<string, PropConfig>,
   type?: Record<string, TypeConfig>,
   model?: Record<string, ModelConfig>,
   generator?: Record<string, GeneratorConfig>
-}
+};
+
+export type SchemaConfig = FinalSchemaConfig & {
+  prop?: Record<string, PropConfig>
+};

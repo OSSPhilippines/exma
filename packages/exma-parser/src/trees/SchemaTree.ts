@@ -10,7 +10,6 @@ import ModelTree from './ModelTree';
 import GeneratorTree from './GeneratorTree';
 
 export default class SchemaTree {
-
   //the language used
   static definitions(lexer: Lexer) {
     EnumTree.definitions(lexer);

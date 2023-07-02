@@ -15,7 +15,8 @@ import type {
   UseReferences,
   GeneratorConfig,
   IdentifierToken, 
-  DeclarationToken
+  DeclarationToken,
+  FinalSchemaConfig
 } from '../types';
 
 import Exception from './Exception';
@@ -59,6 +60,16 @@ export default class Compiler {
       options[property.key.name] = (property.value as LiteralToken).value;
     });
     return [ name, options ] as [ string, EnumConfig ];
+  }
+
+  /**
+   * Converts a schema tree into a final json version
+   * (Removes prop references)
+   */
+  static final(token: SchemaToken) {
+    const schema = this.schema(token, true);
+    delete schema.prop;
+    return schema as FinalSchemaConfig;
   }
 
   /**

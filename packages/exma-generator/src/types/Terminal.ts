@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { parse } from '@exma/parser';
+import { final } from '@exma/parser';
 
 import Loader from './Loader';
 import Exception from './Exception';
@@ -199,7 +199,9 @@ export default class Terminal {
   protected _args: string[];
   //cached input file
   protected _input = '';
+  //cached terminal params (parsed argv)
   protected _params: Record<string, any>|null = null;
+  //cached schema
   protected _schema: Record<string, any>|null = null;
 
   /**
@@ -221,7 +223,7 @@ export default class Terminal {
       if (!fs.existsSync(this._input)) {
         throw Exception.for('Input file %s does not exist', this._input);
       }
-      this._schema = parse(fs.readFileSync(this._input, 'utf8'))
+      this._schema = final(fs.readFileSync(this._input, 'utf8'));
     }
 
     return this._schema as Record<string, any>;

@@ -7,47 +7,6 @@
       ]
     }
   },
-  "prop": {
-    "Text": {
-      "type": "text"
-    },
-    "Uppercase": {
-      "format": "uppercase"
-    },
-    "Pretty": {
-      "format": "pretty"
-    },
-    "Shirts": {
-      "sizes": [
-        "xl",
-        "sm",
-        "md"
-      ]
-    },
-    "Age": {
-      "min": 0,
-      "max": 110
-    },
-    "Price": {
-      "min": 0
-    },
-    "Countries": {
-      "options": [
-        {
-          "label": "United States",
-          "value": "US"
-        },
-        {
-          "label": "Mexico",
-          "value": "MX"
-        },
-        {
-          "label": "Canada",
-          "value": "CA"
-        }
-      ]
-    }
-  },
   "enum": {
     "Roles": {
       "ADMIN": "Admin",

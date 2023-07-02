@@ -23,6 +23,10 @@ export {
   GeneratorTree
 };
 
+export function final(code: string) {
+  return Compiler.final(SchemaTree.parse(code));
+}
+
 export function parse(code: string) {
   return Compiler.schema(SchemaTree.parse(code));
 };
