@@ -100,6 +100,9 @@ export interface Parser {
   read(): Token | undefined
 };
 
+export type EnumConfig = Record<string, Scalar>;
+export type GeneratorConfig = Record<string, Data>;
+export type PropConfig = Record<string, Data>;
 export type ColumnConfig = {
   name: string,
   type: string,
@@ -115,3 +118,11 @@ export type TypeConfig = {
 };
 
 export type ModelConfig = TypeConfig;
+
+export type SchemaConfig = {
+  enum?: Record<string, EnumConfig>,
+  prop?: Record<string, PropConfig>,
+  type?: Record<string, TypeConfig>,
+  model?: Record<string, ModelConfig>,
+  generator?: Record<string, GeneratorConfig>
+}

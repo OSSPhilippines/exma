@@ -1,16 +1,19 @@
 //types
 import type { 
   Data,
-  Scalar,
   DataToken,
   ArrayToken,
+  EnumConfig,
+  PropConfig,
   TypeConfig,
   ModelConfig, 
   ObjectToken,
   SchemaToken,
   ColumnConfig,
+  SchemaConfig,
   LiteralToken, 
   UseReferences,
+  GeneratorConfig,
   IdentifierToken, 
   DeclarationToken
 } from '../types';
@@ -45,33 +48,33 @@ export default class Compiler {
   /**
    * Converts an enum tree into a json version
    */
-  static enum<T = Scalar>(token: DeclarationToken) {
+  static enum(token: DeclarationToken) {
     if (token.kind !== 'enum') {
       throw Exception.for('Invalid Enum');
     }
     //ex. Roles
     const name = token.declarations?.[0].id?.name as string;
-    const options: Record<string, T> = {};
+    const options: EnumConfig = {};
     token.declarations[0].init.properties.forEach(property => {
       options[property.key.name] = (property.value as LiteralToken).value;
     });
-    return [ name, options ] as [ string, Record<string, T> ];
+    return [ name, options ] as [ string, EnumConfig ];
   }
 
   /**
    * Converts an generator tree into a json version
    */
-  static generator<T = any>(token: DeclarationToken) {
+  static generator(token: DeclarationToken) {
     if (token.kind !== 'generator') {
       throw Exception.for('Invalid Generator');
     }
     //ex. ./custom-generator
     const name = token.declarations?.[0].id?.name as string;
-    const value: Record<string, any> = {};
+    const value: GeneratorConfig = {};
     token.declarations[0].init.properties.forEach(property => {
       value[property.key.name] = this.data(property.value);
     });
-    return [ name, value ] as [ string, T ];
+    return [ name, value ] as [ string, GeneratorConfig ];
   }
 
   /**
@@ -147,17 +150,17 @@ export default class Compiler {
   /**
    * Converts a prop tree into a json version
    */
-  static prop<T = any>(token: DeclarationToken, references: UseReferences = false) {
+  static prop(token: DeclarationToken, references: UseReferences = false) {
     if (token.kind !== 'prop') {
       throw Exception.for('Invalid Prop');
     }
     //ex. Foobar
     const name = token.declarations[0].id.name;
-    const value: Record<string, any> = {};
+    const value: PropConfig = {};
     token.declarations[0].init.properties.forEach(property => {
       value[property.key.name] = this.data(property.value, references);
     });
-    return [ name, value ] as [ string, T ];
+    return [ name, value ] as [ string, PropConfig ];
   }
 
   /**
@@ -168,54 +171,54 @@ export default class Compiler {
       throw Exception.for('Invalid Schema');
     }
 
-    const json: Record<string, any> = {};
+    const schema: SchemaConfig = {};
     const references: Record<string, any> = {};
     token.body.forEach(declaration => {
       if (declaration.kind === 'enum') {
-        json.enum = json.enum || {};
+        schema.enum = schema.enum || {};
         const [ key, value ] = this.enum(declaration);
-        json.enum[key] = value;
+        schema.enum[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }
         references[key] = value;
       } else if (declaration.kind === 'prop') {
-        json.prop = json.prop || {};
+        schema.prop = schema.prop || {};
         const [ key, value ] = this.prop(
           declaration, 
           finalize ? references: false
         );
-        json.prop[key] = value;
+        schema.prop[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }
         references[key] = value;
       } else if (declaration.kind === 'type') {
-        json.type = json.type || {};
+        schema.type = schema.type || {};
         const [ key, value ] = this.type(
           declaration, 
           finalize ? references: false
         );
-        json.type[key] = value;
+        schema.type[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }
         references[key] = value;
       } else if (declaration.kind === 'model') {
-        json.model = json.model || {};
+        schema.model = schema.model || {};
         const [ key, value ] = this.model(
           declaration, 
           finalize ? references: false
         );
-        json.model[key] = value;
+        schema.model[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }
         references[key] = value;
       } else if (declaration.kind === 'generator') {
-        json.generator = json.generator || {};
+        schema.generator = schema.generator || {};
         const [ key, value ] = this.generator(declaration);
-        json.generator[key] = value;
+        schema.generator[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }
@@ -223,7 +226,7 @@ export default class Compiler {
       }
     });
 
-    return json;
+    return schema;
   }
 
   /**
