@@ -1,6 +1,6 @@
 {
   "name": "exma",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "An open source schema file standard and generator",
   "author": "Chris <chris@incept.asia>",
@@ -16,8 +16,8 @@
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/"
   },
   "dependencies": {
-    "@exma/generator": "0.0.4",
-    "@exma/parser": "0.0.4"
+    "@exma/generator": "0.0.5",
+    "@exma/parser": "0.0.5"
   },
   "devDependencies": {
     "@types/node": "20.2.5",

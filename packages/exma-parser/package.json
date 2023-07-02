@@ -1,6 +1,6 @@
 {
   "name": "@exma/parser",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "description": "Parses the exma schema file to AST.",
   "author": "Chris <chris@incept.asia>",
@@ -15,7 +15,6 @@
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/",
     "test": "ts-mocha tests/*.test.ts"
   },
-  "dependencies": {},
   "devDependencies": {
     "@jest/globals": "29.5.0",
     "@types/chai": "4.3.5",

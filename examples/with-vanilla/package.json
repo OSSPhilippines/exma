@@ -7,7 +7,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "exma": "0.0.2"
+    "exma": "0.0.5"
   },
   "devDependencies": {
     "@types/node": "20.2.5",
