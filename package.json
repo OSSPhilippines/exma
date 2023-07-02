@@ -11,6 +11,11 @@
     "build:generator": "cd packages/exma-generator && npm run build",
     "build:exma": "cd packages/exma && npm run build",
     "build:typescript": "cd packages/exma-typescript && npm run build",
+    "push": "npm run push:parser && npm run push:generator && npm run push:exma && npm run push:typescript",
+    "push:parser": "cd packages/exma-parser/dist && npm publish",
+    "push:generator": "cd packages/exma-generator/dist && npm publish",
+    "push:exma": "cd packages/exma/dist && npm publish",
+    "push:typescript": "cd packages/exma-typescript && npm publish",
     "test": "cd packages/exma-parser && npm run test"
   },
   "devDependencies": {

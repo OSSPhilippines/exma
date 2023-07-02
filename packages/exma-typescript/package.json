@@ -1,13 +1,21 @@
 {
   "name": "exma-typescript",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
-    "build": "npm run build:tsc && npm run build:files",
-    "build:tsc": "tsc",
-    "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/"
+    "build": "tsc"
   },
+  "main": "index.js",
+  "files": [
+    "dist",
+    "index.d.ts",
+    "index.js",
+    "README.md",
+    "package.json",
+    "LICENSE",
+    "tsconfig.json"
+  ],
   "dependencies": {
-    "exma": "0.0.7",
+    "exma": "0.0.8",
     "ts-morph": "18.0.0"
   },
   "devDependencies": {
