@@ -15,7 +15,7 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "exma": "0.0.8",
+    "exma": "0.0.9",
     "ts-morph": "18.0.0"
   },
   "devDependencies": {
