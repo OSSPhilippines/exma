@@ -42,7 +42,6 @@ export default class Compiler {
     } else if (token.type === 'Identifier') {
       return this.identifier(token, references);
     }
-
     throw Exception.for('Invalid data token type');
   }
 

@@ -1,5 +1,6 @@
 generator "./custom-generator" {
   provider "custom-client-js"
+  url env("DATABASE_URL")
   previewFeatures ["fullTextSearch"]
 }
 

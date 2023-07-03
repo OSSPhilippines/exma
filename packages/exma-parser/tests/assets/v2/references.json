@@ -2,6 +2,7 @@
   "generator": {
     "./custom-generator": {
       "provider": "custom-client-js",
+      "url": "test",
       "previewFeatures": [
         "fullTextSearch"
       ]

@@ -1,6 +1,6 @@
 {
   "name": "@exma/parser",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "license": "MIT",
   "description": "Parses the exma schema file to AST.",
   "author": "Chris <chris@incept.asia>",
@@ -13,7 +13,7 @@
     "build": "npm run build:tsc && npm run build:files",
     "build:tsc": "tsc",
     "build:files": "cp ./README.md ./dist/ && cp ./package.json ./dist/ && cp ./LICENSE ./dist/",
-    "test": "ts-mocha tests/*.test.ts"
+    "test": "cross-env DATABASE_URL=test ts-mocha tests/*.test.ts"
   },
   "devDependencies": {
     "@jest/globals": "29.5.0",
@@ -23,6 +23,7 @@
     "@types/mocha": "10.0.1",
     "@types/node": "20.2.5",
     "chai": "4.3.7",
+    "cross-env": "7.0.3",
     "deep-equal-in-any-order": "2.0.6",
     "mocha": "10.2.0",
     "ts-jest": "29.0.5",

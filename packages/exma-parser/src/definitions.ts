@@ -108,7 +108,7 @@ const definitions: Record<string, Reader> = {
     }
 
     const end = code.indexOf('"', index + 1) + 1;
-    if (end === -1) {
+    if (end < index) {
       return undefined;
     }
 
@@ -255,6 +255,26 @@ const definitions: Record<string, Reader> = {
       properties
     };
   },
+  'Environment': (code, index) => {
+    if (code.substring(index, index + 5) !== 'env("') {
+      return undefined;
+    }
+
+    const end = code.indexOf('")', index + 5) + 2;
+    if (end < index) {
+      return undefined;
+    }
+
+    const value = process.env[code.slice(index + 5, end - 2)] || '';
+
+    return { 
+      type: 'Literal',
+      start: index,
+      end,
+      value,
+      raw: `'${value}'`
+    };
+  },
   'AnyIdentifier': (code, index) => identifier(
     /^[a-z_][a-z0-9_]*$/i, 
     code, 
@@ -332,7 +352,7 @@ const definitions: Record<string, Reader> = {
 
 export const scalar = [
   'Null',  'Boolean', 'String',
-  'Float', 'Integer'
+  'Float', 'Integer', 'Environment'
 ];
 
 export const data = [ ...scalar, 'Object', 'Array' ];

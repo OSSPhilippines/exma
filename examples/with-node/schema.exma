@@ -5,6 +5,7 @@ generator "exma-typescript" {
 
 generator "./dist/make-sql" {
   provider "custom-client-js"
+  url env("DATABASE_URL")
   previewFeatures ["fullTextSearch"]
 }
 
