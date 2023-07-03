@@ -1,6 +1,12 @@
 {
   "name": "exma-typescript",
-  "version": "0.0.9",
+  "version": "0.0.11",
+  "license": "MIT",
+  "description": "Parses an exma schema to typescript typings.",
+  "author": "Chris <chris@incept.asia>",
+  "homepage": "https://github.com/OSSPhilippines/exma",
+  "bugs": "https://github.com/OSSPhilippines/exma/issues",
+  "repository": "OSSPhilippines/exma",
   "scripts": {
     "build": "tsc"
   },
@@ -15,7 +21,7 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "exma": "0.0.9",
+    "exma": "0.0.11",
     "ts-morph": "18.0.0"
   },
   "devDependencies": {

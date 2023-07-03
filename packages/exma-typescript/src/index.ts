@@ -140,9 +140,10 @@ export default function generate({ config, schema, cli }: GeneratorProps) {
           ].join('\n')
         });
       }
-
     }
   }
+
+  source.formatText();
 
   //if you want ts, tsx files
   if (lang == 'ts') {
