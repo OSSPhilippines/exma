@@ -274,14 +274,14 @@ export default class Terminal {
   }
 
   /**
-   * Calls the generator module
+   * Calls the generator plugin
    */
   public generate(callback: Function, config: Record<string, any> = {}) {
-    //if no generators defined throw error
-    if (!this.schema.generator) {
-      throw Exception.for('No generators defined in schema file');
+    //if no plugins defined throw error
+    if (!this.schema.plugin) {
+      throw Exception.for('No plugins defined in schema file');
     }
-    const { generator, ...schema } = this.schema;
+    const { plugin, prop, ...schema } = this.schema;
     //call the callback
     callback({ config, schema, cli: this });
   }
@@ -290,19 +290,18 @@ export default class Terminal {
    * Runs the cli
    */
   public run() {
-    //if no generators defined throw error
-    if (!this.schema.generator) {
-      throw Exception.for('No generators defined in schema file');
+    //if no plugins defined throw error
+    if (!this.schema.plugin) {
+      throw Exception.for('No plugins defined in schema file');
     }
-
-    //extract generators from the schema
-    const { generator: generators, ...schema } = this.schema;
-    //loop through generators
-    for (const generator in generators) {
+    //extract plugins from the schema
+    const { plugin: plugins, ...schema } = this.schema;
+    //loop through plugins
+    for (const plugin in plugins) {
       //determine the module path
-      const module = Loader.absolute(generator, Loader.cwd());
-      //get the generator config
-      const config = this.schema.generator[generator] as Record<string, any>;
+      const module = Loader.absolute(plugin, Loader.cwd());
+      //get the plugin config
+      const config = this.schema.plugin[plugin] as Record<string, any>;
       //load the callback
       let callback = Loader.require(module);
       //check for default
@@ -310,14 +309,11 @@ export default class Terminal {
         callback = callback.default;
       }
       //check if it's a function
-      if (typeof callback !== 'function') {
-        throw Exception.for(
-          'Generator module %s should export a function', 
-          module
-        );
+      if (typeof callback === 'function') {
+        //call the callback
+        callback({ config, schema, cli: this });
       }
-      //call the callback
-      callback({ config, schema, cli: this });
+      //dont do anything else if it's not a function
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "with-node",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "private": true,
   "scripts": {
     "generate": "exma",
@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "@types/node": "20.2.5",
-    "exma": "0.0.12",
-    "exma-typescript": "0.0.12",
+    "exma": "0.0.14",
+    "exma-typescript": "0.0.14",
     "ts-node": "10.9.1",
     "typescript": "5.0.4"
   }

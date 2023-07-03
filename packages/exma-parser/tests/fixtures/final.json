@@ -1,51 +1,10 @@
 {
-  "generator": {
-    "./custom-generator": {
+  "plugin": {
+    "./custom-plugin": {
       "provider": "custom-client-js",
       "url": "test",
       "previewFeatures": [
         "fullTextSearch"
-      ]
-    }
-  },
-  "prop": {
-    "Text": {
-      "type": "text"
-    },
-    "Uppercase": {
-      "format": "uppercase"
-    },
-    "Pretty": {
-      "format": "pretty"
-    },
-    "Shirts": {
-      "sizes": [
-        "xl",
-        "sm",
-        "md"
-      ]
-    },
-    "Age": {
-      "min": 0,
-      "max": 110
-    },
-    "Price": {
-      "min": 0
-    },
-    "Countries": {
-      "options": [
-        {
-          "label": "United States",
-          "value": "US"
-        },
-        {
-          "label": "Mexico",
-          "value": "MX"
-        },
-        {
-          "label": "Canada",
-          "value": "CA"
-        }
       ]
     }
   },
@@ -73,7 +32,9 @@
           "multiple": false,
           "attributes": {
             "field.input": [
-              "${Text}"
+              {
+                "type": "text"
+              }
             ],
             "is.required": true,
             "list.hide": true
@@ -86,7 +47,9 @@
           "multiple": false,
           "attributes": {
             "field.input": [
-              "${Text}"
+              {
+                "type": "text"
+              }
             ],
             "is.required": true
           }
@@ -98,16 +61,50 @@
           "multiple": false,
           "attributes": {
             "field.select": [
-              "${Countries}"
+              {
+                "options": [
+                  {
+                    "label": "United States",
+                    "value": "US"
+                  },
+                  {
+                    "label": "Mexico",
+                    "value": "MX"
+                  },
+                  {
+                    "label": "Canada",
+                    "value": "CA"
+                  }
+                ]
+              }
             ],
             "is.option": [
-              "${Countries}"
+              {
+                "options": [
+                  {
+                    "label": "United States",
+                    "value": "US"
+                  },
+                  {
+                    "label": "Mexico",
+                    "value": "MX"
+                  },
+                  {
+                    "label": "Canada",
+                    "value": "CA"
+                  }
+                ]
+              }
             ],
             "list.text": [
-              "${Uppercase}"
+              {
+                "format": "uppercase"
+              }
             ],
             "view.text": [
-              "${Uppercase}"
+              {
+                "format": "uppercase"
+              }
             ]
           }
         },
@@ -118,7 +115,9 @@
           "multiple": false,
           "attributes": {
             "field.input": [
-              "${Text}"
+              {
+                "type": "text"
+              }
             ],
             "is.required": true
           }
@@ -162,7 +161,9 @@
             ],
             "searchable": true,
             "field.input": [
-              "${Text}"
+              {
+                "type": "text"
+              }
             ],
             "is.required": true
           }
@@ -200,10 +201,14 @@
             "filterable": true,
             "field.select": true,
             "list.text": [
-              "${Uppercase}"
+              {
+                "format": "uppercase"
+              }
             ],
             "view.text": [
-              "${Uppercase}"
+              {
+                "format": "uppercase"
+              }
             ]
           }
         },
@@ -232,7 +237,10 @@
             "filterable": true,
             "sortable": true,
             "field.number": [
-              "${Age}"
+              {
+                "min": 0,
+                "max": 110
+              }
             ],
             "is.gt": [
               0
@@ -255,7 +263,9 @@
             "filterable": true,
             "sortable": true,
             "field.number": [
-              "${Price}"
+              {
+                "min": 0
+              }
             ],
             "list.number": true,
             "view.number": true
@@ -322,7 +332,9 @@
             "filterable": true,
             "sortable": true,
             "list.date": [
-              "${Pretty}"
+              {
+                "format": "pretty"
+              }
             ]
           }
         },
@@ -341,7 +353,9 @@
             "filterable": true,
             "sortable": true,
             "list.date": [
-              "${Pretty}"
+              {
+                "format": "pretty"
+              }
             ]
           }
         },

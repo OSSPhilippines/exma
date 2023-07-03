@@ -17,7 +17,7 @@ npm i --dev exma-typescript
 In your `schema.exma` file add the following generator.
 
 ```js
-generator "exma-typescript" {
+plugin "exma-typescript" {
   ts true
   output "./src/types.ts"
 }
@@ -30,7 +30,7 @@ Options
 For example the following `schema.exma` and the generated `src/types.ts`.
 
 ```js
-generator "exma-typescript" {
+plugin "exma-typescript" {
   ts true
   output "./src/types.ts"
 }

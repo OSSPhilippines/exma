@@ -8,8 +8,8 @@ use(deepEqualInAnyOrder);
 
 describe('Enum Tree', () => {
   it('Should parse Enums', async () => {
-    const actual = EnumTree.parse(fs.readFileSync(`${__dirname}/assets/v2/enum.exma`, 'utf8'));
-    const expected = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/enum.json`, 'utf8'));
+    const actual = EnumTree.parse(fs.readFileSync(`${__dirname}/fixtures/enum.exma`, 'utf8'));
+    const expected = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/enum.json`, 'utf8'));
     //console.log(JSON.stringify(actual, null, 2));
     expect(actual).to.deep.equalInAnyOrder(expected);
   });

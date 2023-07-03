@@ -5,8 +5,8 @@ import PropTree from '../src/trees/PropTree';
 
 describe('Prop Tree', () => {
   it('Should parse Prop', async () => {
-    const actual = PropTree.parse(fs.readFileSync(`${__dirname}/assets/v2/prop.exma`, 'utf8'));
-    const expected = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/prop.json`, 'utf8'));
+    const actual = PropTree.parse(fs.readFileSync(`${__dirname}/fixtures/prop.exma`, 'utf8'));
+    const expected = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/prop.json`, 'utf8'));
     //console.log(JSON.stringify(actual, null, 2));
     expect(actual).to.deep.equalInAnyOrder(expected);
   });

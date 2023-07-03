@@ -1,9 +1,9 @@
-generator "exma-typescript" {
+plugin "exma-typescript" {
   ts true
   output "./src/types.ts"
 }
 
-generator "./dist/make-sql" {
+plugin "./dist/make-sql" {
   provider "custom-client-js"
   url env("DATABASE_URL")
   previewFeatures ["fullTextSearch"]

@@ -1,61 +1,61 @@
 {
   "type": "VariableDeclaration",
-  "kind": "generator",
+  "kind": "plugin",
   "start": 0,
-  "end": 101,
+  "end": 95,
   "declarations": [
     {
       "type": "VariableDeclarator",
-      "start": 10,
-      "end": 101,
+      "start": 7,
+      "end": 95,
       "id": {
         "type": "Identifier",
-        "start": 10,
-        "end": 30,
-        "name": "./custom-generator"
+        "start": 7,
+        "end": 24,
+        "name": "./custom-plugin"
       },
       "init": {
         "type": "ObjectExpression",
-        "start": 31,
-        "end": 101,
+        "start": 25,
+        "end": 95,
         "properties": [
           {
             "type": "Property",
-            "start": 35,
-            "end": 62,
+            "start": 29,
+            "end": 56,
             "key": {
               "type": "Identifier",
-              "start": 35,
-              "end": 43,
+              "start": 29,
+              "end": 37,
               "name": "provider"
             },
             "value": {
               "type": "Literal",
-              "start": 44,
-              "end": 62,
+              "start": 38,
+              "end": 56,
               "value": "custom-client-js",
               "raw": "'custom-client-js'"
             }
           },
           {
             "type": "Property",
-            "start": 65,
-            "end": 99,
+            "start": 59,
+            "end": 93,
             "key": {
               "type": "Identifier",
-              "start": 65,
-              "end": 80,
+              "start": 59,
+              "end": 74,
               "name": "previewFeatures"
             },
             "value": {
               "type": "ArrayExpression",
-              "start": 81,
-              "end": 99,
+              "start": 75,
+              "end": 93,
               "elements": [
                 {
                   "type": "Literal",
-                  "start": 82,
-                  "end": 98,
+                  "start": 76,
+                  "end": 92,
                   "value": "fullTextSearch",
                   "raw": "'fullTextSearch'"
                 }

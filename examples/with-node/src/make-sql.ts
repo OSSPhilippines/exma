@@ -1,5 +1,5 @@
-import type { GeneratorProps } from 'exma';
+import type { PluginProps } from 'exma';
 
-export default function makeSql({ config, schema, cli }: GeneratorProps) {
+export default function makeSql({ config, schema, cli }: PluginProps) {
   cli.terminal.warning('TODO make SQL');
 };

@@ -7,7 +7,7 @@ import EnumTree from './EnumTree';
 import PropTree from './PropTree';
 import TypeTree from './TypeTree';
 import ModelTree from './ModelTree';
-import GeneratorTree from './GeneratorTree';
+import PluginTree from './PluginTree';
 
 export default class SchemaTree {
   //the language used
@@ -16,7 +16,7 @@ export default class SchemaTree {
     PropTree.definitions(lexer);
     TypeTree.definitions(lexer);
     ModelTree.definitions(lexer);
-    GeneratorTree.definitions(lexer);
+    PluginTree.definitions(lexer);
   
     return lexer;
   }
@@ -36,7 +36,7 @@ export default class SchemaTree {
   protected _propTree: PropTree;
   protected _typeTree: TypeTree;
   protected _modelTree: ModelTree;
-  protected _generatorTree: GeneratorTree;
+  protected _pluginTree: PluginTree;
 
   /**
    * Creates a new parser 
@@ -49,7 +49,7 @@ export default class SchemaTree {
     this._propTree = new PropTree(this._lexer);
     this._typeTree = new TypeTree(this._lexer);
     this._modelTree = new ModelTree(this._lexer);
-    this._generatorTree = new GeneratorTree(this._lexer);
+    this._pluginTree = new PluginTree(this._lexer);
   }
 
   /**
@@ -62,7 +62,7 @@ export default class SchemaTree {
       'PropWord', 
       'TypeWord', 
       'ModelWord', 
-      'GeneratorWord' 
+      'PluginWord' 
     ];
     this._lexer.optional('whitespace');
     const body: DeclarationToken[] = [];
@@ -80,8 +80,8 @@ export default class SchemaTree {
         case this._lexer.next('ModelWord'):
           body.push(this._modelTree.model());
           break;
-        case this._lexer.next('GeneratorWord'):
-          body.push(this._generatorTree.generator());
+        case this._lexer.next('PluginWord'):
+          body.push(this._pluginTree.plugin());
           break;
       }
       this._lexer.optional('whitespace');

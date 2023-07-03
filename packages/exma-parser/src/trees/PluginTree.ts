@@ -6,13 +6,13 @@ import { reader } from '../definitions';
 
 import AbstractTree from './AbstractTree';
 
-export default class TypeTree extends AbstractTree {
+export default class PluginTree extends AbstractTree {
   //the language used
   static definitions(lexer: Lexer) {
     super.definitions(lexer);
-    lexer.define('GeneratorWord', (code, index) => reader(
-      '_GeneratorWord', 
-      /^generator$/, 
+    lexer.define('PluginWord', (code, index) => reader(
+      '_PluginWord', 
+      /^plugin$/, 
       code, 
       index
     ));
@@ -31,25 +31,25 @@ export default class TypeTree extends AbstractTree {
    */
   parse(code: string, start = 0) {
     this._lexer.load(code, start);
-    return this.generator();
+    return this.plugin();
   }
 
   /**
-   * Builds the generator syntax
+   * Builds the plugin syntax
    */
-  generator(): DeclarationToken {
-    //generator
-    const type = this._lexer.expect('GeneratorWord');
+  plugin(): DeclarationToken {
+    //plugin
+    const type = this._lexer.expect('PluginWord');
     this._lexer.expect('whitespace');
-    //generator "Foobar"
+    //plugin "Foobar"
     const id = this._lexer.expect<LiteralToken>('String');
     this._lexer.expect('whitespace');
-    //generator "Foobar" {...}
+    //plugin "Foobar" {...}
     const init = this._lexer.expect<ObjectToken>('Object');
   
     return {
       type: 'VariableDeclaration',
-      kind: 'generator',
+      kind: 'plugin',
       start: type.start,
       end: this._lexer.index,
       declarations: [

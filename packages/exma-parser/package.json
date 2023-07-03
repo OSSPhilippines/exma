@@ -1,6 +1,6 @@
 {
   "name": "@exma/parser",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "license": "MIT",
   "description": "Parses the exma schema file to AST.",
   "author": "Chris <chris@incept.asia>",

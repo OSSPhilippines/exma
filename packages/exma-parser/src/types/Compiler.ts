@@ -13,7 +13,7 @@ import type {
   SchemaConfig,
   LiteralToken, 
   UseReferences,
-  GeneratorConfig,
+  PluginConfig,
   IdentifierToken, 
   DeclarationToken,
   FinalSchemaConfig
@@ -72,19 +72,19 @@ export default class Compiler {
   }
 
   /**
-   * Converts an generator tree into a json version
+   * Converts an plugin tree into a json version
    */
-  static generator(token: DeclarationToken) {
-    if (token.kind !== 'generator') {
-      throw Exception.for('Invalid Generator');
+  static plugin(token: DeclarationToken) {
+    if (token.kind !== 'plugin') {
+      throw Exception.for('Invalid Plugin');
     }
-    //ex. ./custom-generator
+    //ex. ./custom-plugin
     const name = token.declarations?.[0].id?.name as string;
-    const value: GeneratorConfig = {};
+    const value: PluginConfig = {};
     token.declarations[0].init.properties.forEach(property => {
       value[property.key.name] = this.data(property.value);
     });
-    return [ name, value ] as [ string, GeneratorConfig ];
+    return [ name, value ] as [ string, PluginConfig ];
   }
 
   /**
@@ -225,10 +225,10 @@ export default class Compiler {
           throw Exception.for('Duplicate %s', key);
         }
         references[key] = value;
-      } else if (declaration.kind === 'generator') {
-        schema.generator = schema.generator || {};
-        const [ key, value ] = this.generator(declaration);
-        schema.generator[key] = value;
+      } else if (declaration.kind === 'plugin') {
+        schema.plugin = schema.plugin || {};
+        const [ key, value ] = this.plugin(declaration);
+        schema.plugin[key] = value;
         if (references[key]) {
           throw Exception.for('Duplicate %s', key);
         }

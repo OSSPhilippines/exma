@@ -1,5 +1,5 @@
 import type { 
-  GeneratorProps, 
+  PluginProps, 
   EnumConfig, 
   TypeConfig, 
   ModelConfig 
@@ -28,7 +28,7 @@ function capitalize(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-export default function generate({ config, schema, cli }: GeneratorProps) {
+export default function generate({ config, schema, cli }: PluginProps) {
   if (!config.output) {
     return cli.terminal.error('No output directory specified');
   }

@@ -3,10 +3,8 @@
 A schema file formatting standard used to define properties of data 
 collections. Originally, schema files are currently used to define 
 database structures. This file format builds on top of that adding 
-arbitrary attributes for fields, validation, formats etc. so generators
+arbitrary attributes for fields, validation, formats etc. so plugins
 are more informed to produce more accurate and relevant code. 
-
-
 
 ## Install
 
@@ -24,7 +22,7 @@ In your root project, craete a file called `schema.exma` and paste the
 following.
 
 ```js
-generator "./make-sql" {
+plugin "./make-sql" {
   engine "mysql"
 }
 
@@ -75,9 +73,9 @@ module.exports = ({ config, schema, cli }) => {
 For Typescript you can do the following
 
 ```ts
-import type { GeneratorProps } from 'exma';
+import type { PluginProps } from 'exma';
 
-export default function makeSql({ config, schema, cli }: GeneratorProps) {
+export default function makeSql({ config, schema, cli }: PluginProps) {
   cli.terminal.warning('TODO make SQL');
 };
 ```
@@ -91,8 +89,8 @@ $ npx exma
 ## 2. Specifications
 
 The primary purpose of this specifications is to provide a simple and 
-flexible syntax that any generator can use as a basis to render code. 
-At this point, Exma does not care how generators use the final 
+flexible syntax that any plugin can use as a basis to render code. 
+At this point, Exma does not care how plugins use the final 
 parsed code.
 
 ```
@@ -204,7 +202,7 @@ type Address @label("Address", "Addresses") {
 ```
 
 > Attributes in both types and models are free form, meaning you can 
-arbitrarily make up attributes. Each generator should provide which 
+arbitrarily make up attributes. Each plugin should provide which 
 attributes it uses however.
 
 ### 2.4. Model
@@ -250,10 +248,10 @@ The projects in this monorepo are the following.
    from `.exma` files and check for syntax errors and to enable 
    intellisense for the file type.
 3. `@exma/generator` - A programmatical command line interface used 
-   by projects and that calls on external generators to make relevant 
+   by projects and that calls on external plugins to make relevant 
    code (like SQL schema, GraphQL, react components, etc.)
 4. `exma` - A stand alone command line tool used that calls on 
-   external generators to make relevant code (like SQL schema, GraphQL, 
+   external plugins to make relevant code (like SQL schema, GraphQL, 
    react components, etc.) 
 
 Please follow the steps below to properly contribute to this repository.

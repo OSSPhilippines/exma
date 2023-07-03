@@ -101,7 +101,7 @@ export interface Parser {
 };
 
 export type EnumConfig = Record<string, Scalar>;
-export type GeneratorConfig = Record<string, Data>;
+export type PluginConfig = Record<string, Data>;
 export type PropConfig = Record<string, Data>;
 export type ColumnConfig = {
   name: string,
@@ -123,7 +123,7 @@ export type FinalSchemaConfig = {
   enum?: Record<string, EnumConfig>,
   type?: Record<string, TypeConfig>,
   model?: Record<string, ModelConfig>,
-  generator?: Record<string, GeneratorConfig>
+  plugin?: Record<string, PluginConfig>
 };
 
 export type SchemaConfig = FinalSchemaConfig & {

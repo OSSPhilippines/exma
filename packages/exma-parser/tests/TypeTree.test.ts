@@ -8,8 +8,8 @@ use(deepEqualInAnyOrder);
 
 describe('Type Tree', () => {
   it('Should parse Type', async () => {
-    const actual = TypeTree.parse(fs.readFileSync(`${__dirname}/assets/v2/type.exma`, 'utf8'));
-    const expected = JSON.parse(fs.readFileSync(`${__dirname}/assets/v2/type.json`, 'utf8'));
+    const actual = TypeTree.parse(fs.readFileSync(`${__dirname}/fixtures/type.exma`, 'utf8'));
+    const expected = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/type.json`, 'utf8'));
     //console.log(JSON.stringify(actual, null, 2));
     expect(actual).to.deep.equalInAnyOrder(expected);
   });

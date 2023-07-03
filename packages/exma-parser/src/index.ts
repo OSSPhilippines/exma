@@ -7,7 +7,7 @@ import PropTree from './trees/PropTree';
 import TypeTree from './trees/TypeTree';
 import ModelTree from './trees/ModelTree';
 import SchemaTree from './trees/SchemaTree';
-import GeneratorTree from './trees/GeneratorTree';
+import PluginTree from './trees/PluginTree';
 
 export type * from './types';
 export { 
@@ -20,7 +20,7 @@ export {
   TypeTree,
   ModelTree,
   SchemaTree,
-  GeneratorTree
+  PluginTree
 };
 
 export function final(code: string) {
